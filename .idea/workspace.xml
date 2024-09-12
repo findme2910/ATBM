@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+      <component name="ArtifactsWorkspaceSettings">
+            <artifacts-to-build>
+                  <artifact name="WebBanThuocBaoVeThucVat:war" />
+            </artifacts-to-build>
+      </component>
+      <component name="AutoImportSettings">
+            <option name="autoReloadType" value="SELECTIVE" />
+      </component>
+      <component name="ChangeListManager">
+            <list default="true" id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Login with google">
+                  <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/java/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/java/bean/User.java" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/java/controller/UserEditControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/java/controller/UserEditControl.java" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/java/dao/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/java/dao/CategoryDAO.java" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/admin_page/editUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/admin_page/editUser.jsp" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/admin_page/quanlyProduct.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/admin_page/quanlyProduct.jsp" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/admin_page/quanlyuser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/admin_page/quanlyuser.jsp" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/blog-details.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/src/main/webapp/blog-details.jsp" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/target/WebBanThuocBaoVeThucVat.war" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/target/WebBanThuocBaoVeThucVat.war" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/target/WebBanThuocBaoVeThucVat/admin_page/quanlyProduct.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/target/WebBanThuocBaoVeThucVat/admin_page/quanlyProduct.jsp" afterDir="false" />
+                  <change beforePath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/target/WebBanThuocBaoVeThucVat/blog-details.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/WebBanThuocBaoVeThucVat/target/WebBanThuocBaoVeThucVat/blog-details.jsp" afterDir="false" />
+            </list>
+            <option name="SHOW_DIALOG" value="false" />
+            <option name="HIGHLIGHT_CONFLICTS" value="true" />
+            <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+            <option name="LAST_RESOLUTION" value="IGNORE" />
+      </component>
+      <component name="FileTemplateManagerImpl">
+            <option name="RECENT_TEMPLATES">
+                  <list>
+                        <option value="HTML File" />
+                        <option value="CSS File" />
+                        <option value="JavaScript File" />
+                        <option value="Servlet" />
+                        <option value="Jsp File" />
+                        <option value="Interface" />
+                        <option value="package-info" />
+                        <option value="Class" />
+                  </list>
+            </option>
+      </component>
+      <component name="Git.Settings">
+            <option name="RECENT_BRANCH_BY_REPOSITORY">
+                  <map>
+                        <entry key="$PROJECT_DIR$" value="21130091_DoanNhatLinh" />
+                  </map>
+            </option>
+            <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+      </component>
+      <component name="LogFilters">
+            <option name="FILTER_ERRORS" value="false" />
+            <option name="FILTER_WARNINGS" value="false" />
+            <option name="FILTER_INFO" value="false" />
+            <option name="FILTER_DEBUG" value="false" />
+            <option name="CUSTOM_FILTER" value="" />
+      </component>
+      <component name="ProblemsViewState">
+            <option name="selectedTabId" value="CurrentFile" />
+      </component>
+      <component name="ProjectColorInfo">{
+            &quot;associatedIndex&quot;: 2
+            }</component>
+      <component name="ProjectId" id="2YIdC4QUipJ4ENXKCeAXcV5rI4a" />
+      <component name="ProjectLevelVcsManager">
+            <ConfirmationsSetting value="1" id="Add" />
+      </component>
+      <component name="ProjectViewState">
+            <option name="hideEmptyMiddlePackages" value="true" />
+            <option name="showLibraryContents" value="true" />
+      </component>
+      <component name="PropertiesComponent">{
+            &quot;keyToString&quot;: {
+            &quot;Application.CategoryDAO.executor&quot;: &quot;Run&quot;,
+            &quot;Application.DBContext.executor&quot;: &quot;Run&quot;,
+            &quot;Application.JDBIConnector.executor&quot;: &quot;Run&quot;,
+            &quot;Application.ProductDAO.executor&quot;: &quot;Run&quot;,
+            &quot;Application.Products.executor&quot;: &quot;Run&quot;,
+            &quot;Application.ProductsDao.executor&quot;: &quot;Run&quot;,
+            &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+            &quot;JavaScript Debug.index.jsp.executor&quot;: &quot;Run&quot;,
+            &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+            &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+            &quot;Tomcat Server.Tomcat 9.0.81.executor&quot;: &quot;Run&quot;,
+            &quot;Tomcat Server.Tomcat 9.0.executor&quot;: &quot;Run&quot;,
+            &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+            &quot;git-widget-placeholder&quot;: &quot;21130514__VuTranThaiSon&quot;,
+            &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+            &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+            &quot;last_opened_file_path&quot;: &quot;C:/website/WebBanThuocBaoVeThucVat&quot;,
+            &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+            &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+            &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+            &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+            &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+            &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+            &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+            &quot;project.structure.side.proportion&quot;: &quot;0.29388815&quot;,
+            &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+            &quot;spring.configuration.checksum&quot;: &quot;160df4a56551aad3a8a3e031b462e798&quot;,
+            &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+            }
+            }</component>
+      <component name="RecentsManager">
+            <key name="CreateClassDialog.RecentsKey">
+                  <recent name="dao" />
+            </key>
+            <key name="CopyFile.RECENT_KEYS">
+                  <recent name="C:\website\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main" />
+                  <recent name="D:\website\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main\java\dao" />
+                  <recent name="D:\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main\webapp" />
+                  <recent name="D:\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main" />
+                  <recent name="C:\Users\Admin1\Documents\GitHub\WebBanThuocBaoVeThucVat\js\adminJS" />
+            </key>
+            <key name="MoveFile.RECENT_KEYS">
+                  <recent name="C:\website\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main\webapp\admin_page" />
+                  <recent name="C:\website\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main\webapp" />
+                  <recent name="D:\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main\webapp\css" />
+                  <recent name="D:\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main\webapp\css\signup_signin" />
+                  <recent name="D:\WebBanThuocBaoVeThucVat\WebBanThuocBaoVeThucVat\src\main\webapp" />
+            </key>
+            <key name="CopyClassDialog.RECENTS_KEY">
+                  <recent name="controller.Product" />
+                  <recent name="dao" />
+            </key>
+      </component>
+      <component name="RunDashboard">
+            <option name="excludedTypes">
+                  <set>
+                        <option value="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" />
+                  </set>
+            </option>
+      </component>
+      <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.81">
+            <configuration name="CategoryDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+                  <option name="MAIN_CLASS_NAME" value="dao.CategoryDAO" />
+                  <module name="WebBanThuocBaoVeThucVat" />
+                  <extension name="coverage">
+                        <pattern>
+                              <option name="PATTERN" value="dao.*" />
+                              <option name="ENABLED" value="true" />
+                        </pattern>
+                  </extension>
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                  </method>
+            </configuration>
+            <configuration name="OrdersDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+                  <option name="MAIN_CLASS_NAME" value="dao.OrdersDAO" />
+                  <module name="WebBanThuocBaoVeThucVat" />
+                  <extension name="coverage">
+                        <pattern>
+                              <option name="PATTERN" value="dao.*" />
+                              <option name="ENABLED" value="true" />
+                        </pattern>
+                  </extension>
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                  </method>
+            </configuration>
+            <configuration name="Products" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+                  <option name="MAIN_CLASS_NAME" value="bean.Products" />
+                  <module name="WebBanThuocBaoVeThucVat" />
+                  <extension name="coverage">
+                        <pattern>
+                              <option name="PATTERN" value="bean.*" />
+                              <option name="ENABLED" value="true" />
+                        </pattern>
+                  </extension>
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                  </method>
+            </configuration>
+            <configuration name="ProductsDao" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+                  <option name="MAIN_CLASS_NAME" value="dao.ProductsDao" />
+                  <module name="WebBanThuocBaoVeThucVat" />
+                  <extension name="coverage">
+                        <pattern>
+                              <option name="PATTERN" value="dao.*" />
+                              <option name="ENABLED" value="true" />
+                        </pattern>
+                  </extension>
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                  </method>
+            </configuration>
+            <configuration name="ProductsService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+                  <option name="MAIN_CLASS_NAME" value="Service.ProductsService" />
+                  <module name="WebBanThuocBaoVeThucVat" />
+                  <extension name="coverage">
+                        <pattern>
+                              <option name="PATTERN" value="Service.*" />
+                              <option name="ENABLED" value="true" />
+                        </pattern>
+                  </extension>
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                  </method>
+            </configuration>
+            <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+                  <option name="MAIN_CLASS_NAME" value="dao.ProductDAO" />
+                  <module name="WebBanThuocBaoVeThucVat" />
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                  </method>
+            </configuration>
+            <configuration name="Tomcat 9.0.81" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.81" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+                  <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8081/HomePageController" />
+                  <option name="UPDATING_POLICY" value="restart-server" />
+                  <deployment>
+                        <artifact name="WebBanThuocBaoVeThucVat:war">
+                              <settings>
+                                    <option name="CONTEXT_PATH" value="" />
+                              </settings>
+                        </artifact>
+                  </deployment>
+                  <server-settings>
+                        <option name="BASE_DIRECTORY_NAME" value="5b48b930-41aa-452d-b4ce-440034b601f8" />
+                        <option name="HTTP_PORT" value="8081" />
+                  </server-settings>
+                  <predefined_log_file enabled="true" id="Tomcat" />
+                  <predefined_log_file enabled="true" id="Tomcat Catalina" />
+                  <predefined_log_file id="Tomcat Manager" />
+                  <predefined_log_file id="Tomcat Host Manager" />
+                  <predefined_log_file id="Tomcat Localhost Access" />
+                  <RunnerSettings RunnerId="Debug">
+                        <option name="DEBUG_PORT" value="50225" />
+                  </RunnerSettings>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                        <option name="BuildArtifacts" enabled="true">
+                              <artifact name="WebBanThuocBaoVeThucVat:war" />
+                        </option>
+                  </method>
+            </configuration>
+            <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+                  <deployment />
+                  <server-settings>
+                        <option name="BASE_DIRECTORY_NAME" value="f201c8fc-80e9-473a-9fcc-861a1986af56" />
+                  </server-settings>
+                  <predefined_log_file enabled="true" id="Tomcat" />
+                  <predefined_log_file enabled="true" id="Tomcat Catalina" />
+                  <predefined_log_file id="Tomcat Manager" />
+                  <predefined_log_file id="Tomcat Host Manager" />
+                  <predefined_log_file id="Tomcat Localhost Access" />
+                  <RunnerSettings RunnerId="Debug">
+                        <option name="DEBUG_PORT" value="50225" />
+                  </RunnerSettings>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+                        <option name="USE_ENV_VARIABLES" value="true" />
+                        <STARTUP>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </STARTUP>
+                        <SHUTDOWN>
+                              <option name="USE_DEFAULT" value="true" />
+                              <option name="SCRIPT" value="" />
+                              <option name="VM_PARAMETERS" value="" />
+                              <option name="PROGRAM_PARAMETERS" value="" />
+                        </SHUTDOWN>
+                  </ConfigurationWrapper>
+                  <method v="2">
+                        <option name="Make" enabled="true" />
+                  </method>
+            </configuration>
+            <list>
+                  <item itemvalue="Application.Unnamed" />
+                  <item itemvalue="Application.OrdersDAO" />
+                  <item itemvalue="Application.Products" />
+                  <item itemvalue="Application.ProductsDao" />
+                  <item itemvalue="Application.ProductsService" />
+                  <item itemvalue="Application.CategoryDAO" />
+                  <item itemvalue="Tomcat Server.Tomcat 9.0.81" />
+            </list>
+            <recent_temporary>
+                  <list>
+                        <item itemvalue="Application.OrdersDAO" />
+                        <item itemvalue="Application.Products" />
+                        <item itemvalue="Application.ProductsDao" />
+                        <item itemvalue="Application.ProductsService" />
+                        <item itemvalue="Application.CategoryDAO" />
+                  </list>
+            </recent_temporary>
+      </component>
+      <component name="SharedIndexes">
+            <attachedChunks>
+                  <set>
+                        <option value="jdk-18.0.2-corretto-18.0.2-3183f394aec4-38982a12" />
+                  </set>
+            </attachedChunks>
+      </component>
+      <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+      <component name="TaskManager">
+            <task active="true" id="Default" summary="Default task">
+                  <changelist id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Login with google" />
+                  <created>1700216902058</created>
+                  <option name="number" value="Default" />
+                  <option name="presentableId" value="Default" />
+                  <updated>1700216902058</updated>
+                  <workItem from="1700216907208" duration="22000" />
+                  <workItem from="1700464213811" duration="83000" />
+                  <workItem from="1700479172115" duration="609000" />
+                  <workItem from="1700551457450" duration="5013000" />
+                  <workItem from="1700578771767" duration="3637000" />
+                  <workItem from="1700632289345" duration="2329000" />
+                  <workItem from="1700641334142" duration="2291000" />
+                  <workItem from="1700975909025" duration="41000" />
+                  <workItem from="1700975980596" duration="67000" />
+                  <workItem from="1700980056951" duration="54000" />
+                  <workItem from="1700985812622" duration="109000" />
+                  <workItem from="1701139797102" duration="784000" />
+                  <workItem from="1701140732566" duration="23000" />
+                  <workItem from="1701140778227" duration="34000" />
+                  <workItem from="1701141039027" duration="206000" />
+                  <workItem from="1701141849985" duration="291000" />
+                  <workItem from="1701142195458" duration="123000" />
+                  <workItem from="1701142341330" duration="100000" />
+                  <workItem from="1701142488283" duration="815000" />
+                  <workItem from="1701173896849" duration="593000" />
+                  <workItem from="1701255264215" duration="2049000" />
+                  <workItem from="1701440929781" duration="286000" />
+                  <workItem from="1702102393461" duration="15000" />
+                  <workItem from="1702481457106" duration="41000" />
+                  <workItem from="1701175048564" duration="2683000" />
+                  <workItem from="1701187207908" duration="44000" />
+                  <workItem from="1701240704213" duration="906000" />
+                  <workItem from="1701245811592" duration="1278000" />
+                  <workItem from="1701270245163" duration="109000" />
+                  <workItem from="1701488366563" duration="512000" />
+                  <workItem from="1701488921992" duration="57000" />
+                  <workItem from="1702032844702" duration="469000" />
+                  <workItem from="1702033358510" duration="1049000" />
+                  <workItem from="1702556114595" duration="131000" />
+                  <workItem from="1702556270858" duration="187000" />
+                  <workItem from="1702556481495" duration="375000" />
+                  <workItem from="1702556921717" duration="1787000" />
+                  <workItem from="1702602774827" duration="2014000" />
+                  <workItem from="1702718444075" duration="1336000" />
+                  <workItem from="1702720797861" duration="4215000" />
+                  <workItem from="1702734865686" duration="591000" />
+                  <workItem from="1702735492744" duration="607000" />
+                  <workItem from="1702736126278" duration="7000" />
+                  <workItem from="1702736162454" duration="1555000" />
+                  <workItem from="1702738093946" duration="127000" />
+                  <workItem from="1702738258772" duration="1211000" />
+                  <workItem from="1702739572187" duration="404000" />
+                  <workItem from="1702740202824" duration="357000" />
+                  <workItem from="1702801330939" duration="5656000" />
+                  <workItem from="1702912223813" duration="633000" />
+                  <workItem from="1702975132645" duration="18995000" />
+                  <workItem from="1703081170399" duration="6888000" />
+                  <workItem from="1703234237900" duration="11362000" />
+                  <workItem from="1703315238646" duration="7678000" />
+                  <workItem from="1703504414956" duration="1107000" />
+                  <workItem from="1703590079605" duration="7524000" />
+                  <workItem from="1703657584846" duration="10761000" />
+                  <workItem from="1704100674454" duration="7238000" />
+                  <workItem from="1704112185857" duration="3773000" />
+                  <workItem from="1704116137860" duration="1206000" />
+                  <workItem from="1704118318010" duration="4609000" />
+                  <workItem from="1704330041710" duration="1643000" />
+                  <workItem from="1704332234962" duration="9796000" />
+                  <workItem from="1704344609827" duration="1631000" />
+                  <workItem from="1704353371363" duration="653000" />
+                  <workItem from="1704436517935" duration="362000" />
+                  <workItem from="1704530990320" duration="470000" />
+                  <workItem from="1704619901764" duration="29000" />
+                  <workItem from="1705036093157" duration="11343000" />
+                  <workItem from="1705086811017" duration="1816000" />
+                  <workItem from="1705116850454" duration="3170000" />
+                  <workItem from="1705128426090" duration="6066000" />
+                  <workItem from="1705135888971" duration="8622000" />
+                  <workItem from="1705160448068" duration="5336000" />
+                  <workItem from="1705194654716" duration="1181000" />
+                  <workItem from="1705201547493" duration="16285000" />
+                  <workItem from="1705232218987" duration="11311000" />
+                  <workItem from="1705255919284" duration="2197000" />
+                  <workItem from="1705294091827" duration="928000" />
+                  <workItem from="1705295037107" duration="14432000" />
+                  <workItem from="1705311069703" duration="51000" />
+                  <workItem from="1705333295493" duration="16739000" />
+                  <workItem from="1705374086143" duration="72000" />
+                  <workItem from="1705396894544" duration="11397000" />
+                  <workItem from="1705416913840" duration="114000" />
+                  <workItem from="1705466337074" duration="17589000" />
+                  <workItem from="1705564348296" duration="2989000" />
+                  <workItem from="1705567355470" duration="4957000" />
+                  <workItem from="1705598794311" duration="27000" />
+                  <workItem from="1705598879709" duration="8011000" />
+                  <workItem from="1705626804085" duration="348000" />
+                  <workItem from="1705628406151" duration="18000" />
+                  <workItem from="1705628475960" duration="67000" />
+                  <workItem from="1705628556938" duration="41000" />
+                  <workItem from="1705628673112" duration="725000" />
+                  <workItem from="1705629841837" duration="530000" />
+                  <workItem from="1705644013965" duration="297000" />
+                  <workItem from="1705650183825" duration="15606000" />
+                  <workItem from="1705717794091" duration="4640000" />
+                  <workItem from="1705726726953" duration="5697000" />
+                  <workItem from="1705736728636" duration="3476000" />
+                  <workItem from="1705748213580" duration="35310000" />
+                  <workItem from="1705831799686" duration="9164000" />
+                  <workItem from="1705899241733" duration="39916000" />
+                  <workItem from="1705944066140" duration="6929000" />
+                  <workItem from="1705970866589" duration="1013000" />
+                  <workItem from="1706182582950" duration="29000" />
+                  <workItem from="1708685519376" duration="8000" />
+                  <workItem from="1708685678902" duration="620000" />
+                  <workItem from="1708911996430" duration="5305000" />
+                  <workItem from="1709021265228" duration="1760000" />
+                  <workItem from="1709091808629" duration="1296000" />
+                  <workItem from="1709551962791" duration="1254000" />
+                  <workItem from="1709946688230" duration="147000" />
+                  <workItem from="1709946840526" duration="11911000" />
+                  <workItem from="1710036949205" duration="2143000" />
+                  <workItem from="1710488510409" duration="3520000" />
+                  <workItem from="1710572383757" duration="5311000" />
+                  <workItem from="1710583248716" duration="1858000" />
+                  <workItem from="1710641942055" duration="7546000" />
+                  <workItem from="1710931856897" duration="61000" />
+                  <workItem from="1711095430772" duration="375000" />
+                  <workItem from="1711099661257" duration="666000" />
+                  <workItem from="1711275279877" duration="3350000" />
+                  <workItem from="1711380703473" duration="3004000" />
+                  <workItem from="1711600932538" duration="44000" />
+                  <workItem from="1711601003152" duration="18000" />
+                  <workItem from="1711601063622" duration="29000" />
+                  <workItem from="1711601100137" duration="70000" />
+                  <workItem from="1711601208761" duration="104000" />
+                  <workItem from="1711601327042" duration="395000" />
+                  <workItem from="1711601741834" duration="34000" />
+                  <workItem from="1711601906287" duration="306000" />
+                  <workItem from="1711602298063" duration="7952000" />
+                  <workItem from="1711638530973" duration="650000" />
+                  <workItem from="1711698061881" duration="3985000" />
+                  <workItem from="1711871123206" duration="79000" />
+                  <workItem from="1711871228302" duration="280000" />
+                  <workItem from="1711871526719" duration="7693000" />
+                  <workItem from="1711981298849" duration="1840000" />
+                  <workItem from="1712112185064" duration="506000" />
+                  <workItem from="1712112959359" duration="730000" />
+                  <workItem from="1712117740017" duration="15000" />
+                  <workItem from="1712144883666" duration="595000" />
+                  <workItem from="1712221357999" duration="1845000" />
+                  <workItem from="1712223226807" duration="6851000" />
+                  <workItem from="1712302444450" duration="3997000" />
+                  <workItem from="1712312940242" duration="235000" />
+                  <workItem from="1713868225003" duration="2960000" />
+                  <workItem from="1715875176536" duration="295000" />
+                  <workItem from="1715903601922" duration="7224000" />
+                  <workItem from="1715917295802" duration="61000" />
+                  <workItem from="1715952858370" duration="5100000" />
+                  <workItem from="1715991357631" duration="21417000" />
+                  <workItem from="1716107368428" duration="1499000" />
+                  <workItem from="1716125596899" duration="26000" />
+                  <workItem from="1716221475265" duration="1186000" />
+                  <workItem from="1716271404934" duration="2871000" />
+            </task>
+            <task id="LOCAL-00001" summary="test">
+                  <option name="closed" value="true" />
+                  <created>1702556843694</created>
+                  <option name="number" value="00001" />
+                  <option name="presentableId" value="LOCAL-00001" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1702556843694</updated>
+            </task>
+            <task id="LOCAL-00002" summary="test">
+                  <option name="closed" value="true" />
+                  <created>1702735598895</created>
+                  <option name="number" value="00002" />
+                  <option name="presentableId" value="LOCAL-00002" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1702735598895</updated>
+            </task>
+            <task id="LOCAL-00003" summary="test">
+                  <option name="closed" value="true" />
+                  <created>1702736816865</created>
+                  <option name="number" value="00003" />
+                  <option name="presentableId" value="LOCAL-00003" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1702736816866</updated>
+            </task>
+            <task id="LOCAL-00004" summary="fix bug">
+                  <option name="closed" value="true" />
+                  <created>1709552982620</created>
+                  <option name="number" value="00004" />
+                  <option name="presentableId" value="LOCAL-00004" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1709552982620</updated>
+            </task>
+            <task id="LOCAL-00005" summary="Thêm button mua hàng ở trang chi tiết sản phẩm">
+                  <option name="closed" value="true" />
+                  <created>1710650519405</created>
+                  <option name="number" value="00005" />
+                  <option name="presentableId" value="LOCAL-00005" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1710650519405</updated>
+            </task>
+            <task id="LOCAL-00006" summary="đưa trang blog lên thanh menu">
+                  <option name="closed" value="true" />
+                  <created>1711100182773</created>
+                  <option name="number" value="00006" />
+                  <option name="presentableId" value="LOCAL-00006" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711100182773</updated>
+            </task>
+            <task id="LOCAL-00007" summary="Sửa lỗi chức năng giỏ hàng">
+                  <option name="closed" value="true" />
+                  <created>1711605421238</created>
+                  <option name="number" value="00007" />
+                  <option name="presentableId" value="LOCAL-00007" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711605421238</updated>
+            </task>
+            <task id="LOCAL-00008" summary="Sửa lỗi chức năng giỏ hàng">
+                  <option name="closed" value="true" />
+                  <created>1711605625830</created>
+                  <option name="number" value="00008" />
+                  <option name="presentableId" value="LOCAL-00008" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711605625830</updated>
+            </task>
+            <task id="LOCAL-00009" summary="Sửa lỗi chức năng giỏ hàng">
+                  <option name="closed" value="true" />
+                  <created>1711605928351</created>
+                  <option name="number" value="00009" />
+                  <option name="presentableId" value="LOCAL-00009" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711605928351</updated>
+            </task>
+            <task id="LOCAL-00010" summary="Sửa lỗi chức năng giỏ hàng">
+                  <option name="closed" value="true" />
+                  <created>1711606467336</created>
+                  <option name="number" value="00010" />
+                  <option name="presentableId" value="LOCAL-00010" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711606467336</updated>
+            </task>
+            <task id="LOCAL-00011" summary="Sửa lỗi chức năng giỏ hàng">
+                  <option name="closed" value="true" />
+                  <created>1711606642636</created>
+                  <option name="number" value="00011" />
+                  <option name="presentableId" value="LOCAL-00011" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711606642636</updated>
+            </task>
+            <task id="LOCAL-00012" summary="Hoàn thiện giao diện trang chủ">
+                  <option name="closed" value="true" />
+                  <created>1711608235014</created>
+                  <option name="number" value="00012" />
+                  <option name="presentableId" value="LOCAL-00012" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711608235014</updated>
+            </task>
+            <task id="LOCAL-00013" summary="Thêm tính năng bắt buộc phải đăng nhập mới thêm sản phẩm vào giỏ hàng được">
+                  <option name="closed" value="true" />
+                  <created>1711609567793</created>
+                  <option name="number" value="00013" />
+                  <option name="presentableId" value="LOCAL-00013" />
+                  <option name="project" value="LOCAL" />
+                  <updated>1711609567793</updated>
+            </task>
+            <option name="localTasksCounter" value="14" />
+            <servers />
+      </component>
+      <component name="TypeScriptGeneratedFilesManager">
+            <option name="version" value="3" />
+      </component>
+      <component name="Vcs.Log.Tabs.Properties">
+            <option name="TAB_STATES">
+                  <map>
+                        <entry key="MAIN">
+                              <value>
+                                    <State />
+                              </value>
+                        </entry>
+                  </map>
+            </option>
+      </component>
+      <component name="VcsManagerConfiguration">
+            <MESSAGE value="test" />
+            <MESSAGE value="fix bug" />
+            <MESSAGE value="Thêm button mua hàng ở trang chi tiết sản phẩm" />
+            <MESSAGE value="đưa trang blog lên thanh menu" />
+            <MESSAGE value="Sửa lỗi chức năng giỏ hàng" />
+            <MESSAGE value="Hoàn thiện giao diện trang chủ" />
+            <MESSAGE value="Thêm tính năng bắt buộc phải đăng nhập mới thêm sản phẩm vào giỏ hàng được" />
+            <option name="LAST_COMMIT_MESSAGE" value="Thêm tính năng bắt buộc phải đăng nhập mới thêm sản phẩm vào giỏ hàng được" />
+      </component>
+</project>
