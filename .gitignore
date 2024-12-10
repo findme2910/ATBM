@@ -1,0 +1,32 @@
+# Maven
+/.mvn
+/mvnw
+/mvnw.cmd
+/target/
+
+# Eclipse
+/.settings/
+/.project
+/.classpath
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+
+# NetBeans
+/nbproject/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Java build output
+*.class
+
+# Other files you might want to ignore
+*.jar
+*.war
+*.ear
