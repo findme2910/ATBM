@@ -8,6 +8,8 @@ public class Utility {
             case 2: return "Đang Đóng Gói";
             case 3: return "Đang Vận Chuyển";
             case 4: return "Đã Giao";
+            case 6:
+                return "Chưa ký";
             default: return "Không Xác Định";
         }
     }

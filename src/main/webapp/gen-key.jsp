@@ -54,7 +54,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="layout/header.jsp"/>
+<%--<jsp:include page="layout/header.jsp"/>--%>
 <div class="container mt-lg-5">
     <div class="text-center">
         <button type="button" class="btn btn-primary" id="btnGenKey">Tạo khóa</button>
