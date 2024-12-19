@@ -198,6 +198,9 @@
                                         <div class="col d-flex justify-content-start">
                                         <button class="btn btn-primary" type="submit" style="background-color: #7fad39; border: #7fad39;">Save Changes</button>
                                         </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <button class="btn btn-primary" type="submit" style="background-color: #fd4545; border: #e75c5c;">Genkey</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

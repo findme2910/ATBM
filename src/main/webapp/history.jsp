@@ -1,4 +1,4 @@
-<%--
+`<%--
   Created by IntelliJ IDEA.
   User: 84828
   Date: 4/21/2024
@@ -21,7 +21,7 @@
     <title>Vườn phố</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<%--    Database css boostrap--%>
+    <%--    Database css boostrap--%>
     <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -33,7 +33,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/elegant-icons.css" type="text/css">
@@ -44,6 +46,17 @@
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="assets/css/Log_Regis.css">
     <style>
+        .btn-custom {
+            background-color: #7FAD39;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: white;
+            color: #7FAD39;
+            border: 1px solid #7FAD39;
+        }
+
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             padding: 0.5rem 0.75rem;
             margin-left: -1px;
@@ -52,32 +65,38 @@
             color: #007bff;
             background-color: #fff;
             text-decoration: none;
-            cursor:pointer;
+            cursor: pointer;
         }
+
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
             color: #0056b3;
             background-color: #e9ecef;
             border-color: #dee2e6;
         }
+
         .dataTables_wrapper .dataTables_filter input {
             border: 1px solid #dee2e6;
             border-radius: 0.25rem;
             padding: 0.375rem 0.75rem;
         }
-        input[type="search"]{
-            background-color:#fff;
+
+        input[type="search"] {
+            background-color: #fff;
         }
 
-        .modal .modal-footer{
-            background-color:#fff;
+        .modal .modal-footer {
+            background-color: #fff;
 
         }
-        table.table td:last-child{
-            font-size:14px;
+
+        table.table td:last-child {
+            font-size: 14px;
         }
-        a{
+
+        a {
             text-decoration: none !important;
         }
+
         .navbar {
             background-color: #fff;
             border-bottom: 1px solid #ccc;
@@ -92,14 +111,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding:0;
+            padding: 0;
             width: 100%;
         }
 
         .navbar ul li {
-            flex:1;
-            border-right:1px solid white ;
+            flex: 1;
+            border-right: 1px solid white;
         }
+
         .navbar ul li a {
             text-decoration: none;
             color: #000;
@@ -108,25 +128,30 @@
             width: 100%;
             text-align: center;
         }
+
         .navbar a.active {
             background-color: #7fad39;
             color: white;
         }
+
         .navbar li:hover {
             background-color: #7fad39;
         }
-        .btn-view  {
-            color:#ff6347;
+
+        .btn-view {
+            color: #ff6347;
             background-color: #ffe4e1;
         }
 
         .btn-view:hover {
             background-color: #ffcccb;
-            color:#dc3545;
+            color: #dc3545;
         }
-        body{
-            padding-right: 0!important;
+
+        body {
+            padding-right: 0 !important;
         }
+
         .btn-review {
             background-color: #ff9800;
             color: white;
@@ -136,13 +161,26 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
         .btn-review:hover {
-    background-color:#cc7900;
+            background-color: #cc7900;
+        }
+
+        .alertWidth {
+            width: 200px !important;
+        }
+
+        .aleHeight {
+            height: 100px !important;
         }
     </style>
 </head>
 <body>
 <jsp:include page="layout/header.jsp"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <main>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -152,6 +190,7 @@
         <div class="navbar" style="margin-bottom:25px">
             <ul>
                 <li><a class="active" href="#" data-status="5">Tất cả</a></li>
+                <li><a href="#" data-status="6">Chưa ký</a></li>
                 <li><a href="#" data-status="1">Chờ Xét Duyệt</a></li>
                 <li><a href="#" data-status="2">Đang Đóng Gói</a></li>
                 <li><a href="#" data-status="3">Đang Vận Chuyển</a></li>
@@ -179,19 +218,28 @@
                 for (OrderTable order : listOrderTables) {
             %>
             <tr>
-                <td><%= order.getId() %></td>
-                <td><%= order.getUsername() %></td>
-                <td><%= order.getAddress() %></td>
-                <td><%= order.getPhone_number() %></td>
+                <td><%= order.getId() %>
+                </td>
+                <td><%= order.getUsername() %>
+                </td>
+                <td><%= order.getAddress() %>
+                </td>
+                <td><%= order.getPhone_number() %>
+                </td>
                 <td><fmt:formatNumber value="<%= order.getTotal_price() %>" pattern="#,##0 VND"/></td>
-                <td><%=Util.formatTimestampToString(order.getCreateAt())%></td>
-                <td><%= order.getPayment_status() %></td>
-                <td><%= Utility.getOrderStatus(order.getOrder_status()) %></td>
+                <td><%=Util.formatTimestampToString(order.getCreateAt())%>
+                </td>
+                <td><%= order.getPayment_status() %>
+                </td>
+                <td><%= Utility.getOrderStatus(order.getOrder_status()) %>
+                </td>
                 <td>
-                    <button class="btn btn-view view" data-toggle="modal" data-target="#orderDetailModal" data-id="<%= order.getId() %>">
+                    <button class="btn btn-view view" data-toggle="modal" data-target="#orderDetailModal"
+                            data-id="<%= order.getId() %>">
                         <i class="fas fa-eye" data-toggle="tooltip" title="Xem chi tiết"></i>
                     </button>
-                    <button class="btn btn-danger cancel-btn" data-toggle="modal" data-target="#cancelOrderModal" data-order-id="<%= order.getId() %>">
+                    <button class="btn btn-danger cancel-btn" data-toggle="modal" data-target="#cancelOrderModal"
+                            data-order-id="<%= order.getId() %>">
                         <i class="fa-solid fa-ban"></i>
                     </button>
                 </td>
@@ -203,7 +251,8 @@
         </table>
     </div>
     <!-- Modal Chi tiết đơn hàng -->
-    <div class="modal fade " id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+    <div class="modal fade " id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog " role="document">
             <div class="modal-content" style="width:max-content;margin-top:100px">
                 <div class="modal-header">
@@ -229,13 +278,148 @@
                     </table>
                 </div>
                 <div class="modal-footer">
+
+                    <button id="btnSign" class="btn btn-custom sign-btn" data-toggle="modal"
+                            data-target="#signOrderModal"
+                            data-order-id="9">
+                        Ký đơn hàng
+                    </button>
+
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <%--    Modal ký đơn hàng--%>
+    <div class="modal fade " id="signOrderModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content" style="width:max-content;margin-top:100px">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signOrderModalLabel">Xác thực người dùng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <%-- Nội dung chi tiết đơn hàng sẽ được cập nhật tại đây --%>
+                    <table class="table table-bordered table-hover">
+
+                        <tbody>
+                        <tr>
+
+
+                            <td>
+                                <div class="mb-3">
+                                    <label for="privateKeyTextArea" class="form-label">Nhập private key của
+                                        bạn</label>
+                                    <textarea class="form-control" id="privateKeyTextArea" rows="3"></textarea>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group mt-5">
+                                    <div class="custom-file">
+                                        Hoặc
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group mt-5">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" onchange="handleFile(event)"
+                                               id="privateKeyFile">
+                                        <label class="custom-file-label" for="privateKeyFile">Chọn file</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-custom" id="cofirmSignOrder">Xác thực</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn-view').on('click', function () {
+                const orderId = $(this).data('id');
+                const orderStatus = $(this).closest('tr').find('td:nth-child(8)').text().trim();
+
+                const invalidStatuses = ["Đã Giao", "Đã hủy", "Chờ Xét Duyệt", "Đang Đóng Gói", "Đang Vận Chuyển"];
+                console.log("Order Status:", orderStatus);
+                if (invalidStatuses.includes(orderStatus)) {
+                    $('#btnSign').hide();
+                } else {
+                    $('#btnSign').show();
+                }
+
+                orderIdParam = orderId;
+            });
+        });
+
+        let fileData;
+
+        function handleFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    fileData = e.target.result.trim();
+                    console.log("File data: ", fileData);
+                };
+
+                reader.readAsText(file);
+            } else {
+                console.error("Không có file nào được chọn.");
+            }
+        }
+
+        let orderIdParam;
+
+        $('#cofirmSignOrder').on('click', function () {
+            let privateKey;
+            const privateKeyTextArea = $('#privateKeyTextArea').val().trim();
+
+            if (!privateKeyTextArea && !fileData) {
+                privateKey = null;
+            } else if (privateKeyTextArea) {
+                privateKey = privateKeyTextArea;
+            } else if (fileData) {
+                privateKey = fileData;
+            }
+
+            console.log("Private Key: ", privateKey);
+
+            $.ajax({
+                type: 'POST',
+                url: 'OrderHistoryCL',
+                data: {action: 'sign', orderId: orderIdParam, privateKey: privateKey},
+                success: function (response) {
+                    Swal.fire({
+                        titleText: response,
+                        icon: "success"
+                    });
+                },
+                error: function (error) {
+                    const errorMessage = error.responseText;
+                    Swal.fire({
+                        titleText: errorMessage,
+                        icon: "error"
+                    });
+                }
+            });
+        });
+    </script>
     <%-- Modal Hủy đơn hàng --%>
-    <div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel" aria-hidden="true">
+    <div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="margin-top:150px">
                 <div class="modal-header">
@@ -256,7 +440,8 @@
     </div>
 
     <%-- Modal Thông Báo Lỗi --%>
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true" style="top:150px">
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel"
+         aria-hidden="true" style="top:150px">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -276,9 +461,6 @@
     </div>
 </main>
 <jsp:include page="layout/footer.jsp"/>
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- popper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- Bootstrap JS -->
@@ -287,8 +469,9 @@
 <!-- DataTables JS with Bootstrap -->
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+</body>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var table = $('#orderDetailsTable').DataTable({
             language: {
                 sProcessing: "Đang xử lý...",
@@ -307,7 +490,7 @@
             }
         });
 
-        $('.navbar ul li a').on('click', function(e) {
+        $('.navbar ul li a').on('click', function (e) {
             e.preventDefault();
             var status = $(this).data('status');
             $('.navbar ul li a').removeClass('active');
@@ -315,78 +498,87 @@
             $.ajax({
                 type: 'GET',
                 url: 'OrderHistoryCL',
-                data: { action: 'filter', status: status },
-                success: function(response) {
+                data: {action: 'filter', status: status},
+                success: function (response) {
                     var orderDetailsHtml = '';
-                    response.forEach(function(order) {
+                    response.forEach(function (order) {
                         orderDetailsHtml += '<tr>';
                         orderDetailsHtml += '<td>' + order.id + '</td>';
                         orderDetailsHtml += '<td>' + order.username + '</td>';
                         orderDetailsHtml += '<td>' + order.address + '</td>';
                         orderDetailsHtml += '<td>' + order.phone_number + '</td>';
-                        orderDetailsHtml += '<td>' + parseInt(order.total_price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + '</td>';
+                        orderDetailsHtml += '<td>' + parseInt(order.total_price).toLocaleString('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }) + '</td>';
                         orderDetailsHtml += '<td>' + order.createAt + '</td>';
                         orderDetailsHtml += '<td>' + order.payment_status + '</td>';
-                        orderDetailsHtml += '<td>' + order.orderStatusText  + '</td>';
+                        orderDetailsHtml += '<td>' + order.orderStatusText + '</td>';
                         orderDetailsHtml += '<td>';
                         orderDetailsHtml += '<button class="btn btn-view view" data-toggle="modal" data-target="#orderDetailModal" data-id="' + order.id + '">';
                         orderDetailsHtml += '<i class="fas fa-eye" data-toggle="tooltip" title="Xem chi tiết"></i>';
                         orderDetailsHtml += '</button>';
-                        orderDetailsHtml += '<button class="btn btn-danger cancel-btn" data-toggle="modal" data-target="#cancelOrderModal" data-order-id="' + order.id + '">';
+                        orderDetailsHtml += '<button class="btn btn-danger cancel-btn" data-toggle="modal"  data-target="#cancelOrderModal" data-order-id="' + order.id + '">';
                         orderDetailsHtml += '<i class="fa-solid fa-ban"></i>';
                         orderDetailsHtml += '</button>';
+
                         orderDetailsHtml += '</td>';
                         orderDetailsHtml += '</tr>';
                     });
                     table.clear().draw();
                     table.rows.add($(orderDetailsHtml)).draw();
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra khi lọc đơn hàng');
                 }
             });
         });
         // Hiển thị chi tiết đơn hàng trong modal
-        $(document).on('click', '.view', function() {
+        $(document).on('click', '.view', function () {
+
             var orderId = $(this).data('id');
+            orderIdParam = orderId;
             $.ajax({
                 type: 'GET',
                 url: 'OrderHistoryCL',
-                data: { action: 'view', orderId: orderId },
-                success: function(response) {
+                data: {action: 'view', orderId: orderId},
+                success: function (response) {
                     var orderDetailsHtml = '';
-                    response.forEach(function(detail) {
+                    response.forEach(function (detail) {
                         orderDetailsHtml += '<tr>';
                         orderDetailsHtml += '<td>' + detail.id + '</td>';
                         orderDetailsHtml += '<td>' + detail.product_name + '</td>';
                         orderDetailsHtml += '<td><img src="' + detail.img + '" alt="' + detail.product_name + '" style="width: 50px; height: 50px;"></td>';
                         orderDetailsHtml += '<td>' + detail.quantity + '</td>';
-                        orderDetailsHtml += '<td>' + parseInt(detail.priceDetails).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + '</td>';
+                        orderDetailsHtml += '<td>' + parseInt(detail.priceDetails).toLocaleString('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }) + '</td>';
                         orderDetailsHtml += '</tr>';
                     });
                     $('#orderDetailsContent').html(orderDetailsHtml);
                     $('#orderDetailModal').modal('show');
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra khi lấy chi tiết đơn hàng');
                 }
             });
         });
 
         // Hiển thị modal hủy đơn hàng với đúng orderId
-        $(document).on('click', '.cancel-btn', function() {
+        $(document).on('click', '.cancel-btn', function () {
             var orderId = $(this).data('order-id');
             $('#confirmCancelOrder').data('order-id', orderId);
         });
 
         // Xử lý việc hủy đơn hàng
-        $('#confirmCancelOrder').on('click', function() {
+        $('#confirmCancelOrder').on('click', function () {
             var orderId = $(this).data('order-id');
             $.ajax({
                 type: 'POST',
                 url: 'OrderHistoryCL',
-                data: { action: 'cancelOrder', orderId: orderId },
-                success: function(response) {
+                data: {action: 'cancelOrder', orderId: orderId},
+                success: function (response) {
                     if (response === 'Success') {
                         alert('Đơn hàng đã được hủy thành công');
                         location.reload();
@@ -396,22 +588,22 @@
                         $('#errorModal').modal('show');
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra khi hủy đơn hàng');
                 }
             });
         });
         // Xử lý sự kiện click vào nút "Đánh Giá Sản Phẩm"
-        $('#review').on('click', function(e) {
+        $('#review').on('click', function (e) {
             e.preventDefault();
             $.ajax({
                 url: 'OrderHistoryCL',
                 method: 'GET',
-                data: { action: 'review' },
-                success: function(response) {
+                data: {action: 'review'},
+                success: function (response) {
                     $('#orderDetailsTable_wrapper').html(response);
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra khi tải trang đánh giá');
                 }
             });
@@ -419,5 +611,5 @@
     });
 
 </script>
-</body>
 </html>
+`
