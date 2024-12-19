@@ -53,6 +53,7 @@
                             if (data.error) {
                                 $('#errorRegister').html(data.error);
                             } else {
+                                alert("Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản."); // Hiển thị thông báo
                                 window.location.href = "login";
                             }
                         } catch (e) {
