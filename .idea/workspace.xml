@@ -9,7 +9,58 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Login with google" />
+    <list default="true" id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Login with google">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bean/OrderTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bean/OrderTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DB.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DB.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Service/SendingEmail$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Service/SendingEmail$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Service/SendingEmail$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Service/SendingEmail$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Service/SendingEmail$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Service/SendingEmail$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Service/SendingEmail$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Service/SendingEmail$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Service/SendingEmail.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Service/SendingEmail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/Cart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/CartItemDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/CartItemDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/Discount.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/Discount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/OrderDetail.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/OrderDetail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/OrderDetailTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/OrderDetailTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/OrderStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/OrderStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/OrderTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/OrderTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/Orders.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/Orders.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/ProductReview.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/ProductReview.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/Products.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/Products.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bean/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config/CloudinaryConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/CloudinaryConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config/VnpayConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/VnpayConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Admin/EditCategory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Admin/EditCategory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Admin/EditProduct.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Admin/EditProduct.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Admin/InsertProduct.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Admin/InsertProduct.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Admin/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Admin/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Admin/UserEdit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Admin/UserEdit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/LoginDiscordHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LoginDiscordHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/LoginFacebookHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LoginFacebookHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/LoginGithubHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LoginGithubHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/LoginTwitterHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LoginTwitterHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/PayByVN.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/PayByVN.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/ProductInfor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/ProductInfor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/ShoppingCartCL.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/ShoppingCartCL.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/ThanhToanCL.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/ThanhToanCL.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/CartDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/CartDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/DiscountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/DiscountDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/LogDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/LogDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/OrdersDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/OrdersDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/ProductDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/ProductDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/ProductReviewDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/ProductReviewDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/ProductsDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/ProductsDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/UserDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/dao/admin/DashBoardDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/dao/admin/DashBoardDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/JDBIConnector.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/JDBIConnector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/PasswordUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/PasswordUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/Utils.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,7 +86,7 @@
         <entry key="$PROJECT_DIR$" value="21130091_DoanNhatLinh" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -58,38 +109,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CategoryDAO.executor": "Run",
-    "Application.DBContext.executor": "Run",
-    "Application.JDBIConnector.executor": "Run",
-    "Application.ProductDAO.executor": "Run",
-    "Application.Products.executor": "Run",
-    "Application.ProductsDao.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.index.jsp.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Tomcat Server.Tomcat 9.0.81.executor": "Run",
-    "Tomcat Server.Tomcat 9.0.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/website/WebBanThuocBaoVeThucVat",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.29388815",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "160df4a56551aad3a8a3e031b462e798",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CategoryDAO.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DBContext.executor&quot;: &quot;Run&quot;,
+    &quot;Application.JDBIConnector.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProductDAO.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Products.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ProductsDao.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.index.jsp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Tomcat Server.Tomcat 9.0.81.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Tomcat 9.0.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Kien&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/website/WebBanThuocBaoVeThucVat&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.29388815&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;160df4a56551aad3a8a3e031b462e798&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="dao" />
@@ -120,7 +176,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 9.0.81">
+  <component name="RunManager" selected="Smart Tomcat.tomcat">
     <configuration name="CategoryDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dao.CategoryDAO" />
       <module name="WebBanThuocBaoVeThucVat" />
@@ -359,6 +415,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="tomcat" type="com.poratu.idea.plugins.tomcat">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="catalinaBase" value="C:\Users\LAPTOP USA PRO\.SmartTomcat\ATBM\WebBanThuocBaoVeThucVat" />
+      <option name="contextPath" value="/" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
+      <option name="extraClassPath" value="" />
+      <option name="port" value="8081" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/9.0.98" />
+          <option name="path" value="$PROJECT_DIR$/../../tomcat/apache-tomcat-9.0.98" />
+          <option name="version" value="9.0.98.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <module name="WebBanThuocBaoVeThucVat" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
       <item itemvalue="Application.OrdersDAO" />
@@ -366,6 +449,7 @@
       <item itemvalue="Application.ProductsDao" />
       <item itemvalue="Application.ProductsService" />
       <item itemvalue="Application.CategoryDAO" />
+      <item itemvalue="Smart Tomcat.tomcat" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.81" />
     </list>
     <recent_temporary>
@@ -551,6 +635,8 @@
       <workItem from="1716125596899" duration="26000" />
       <workItem from="1716221475265" duration="1186000" />
       <workItem from="1716271404934" duration="2871000" />
+      <workItem from="1734588764130" duration="57000" />
+      <workItem from="1734588834339" duration="643000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />

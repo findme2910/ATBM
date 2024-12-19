@@ -1,15 +1,15 @@
 package bean;
 
 import log.AbsModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class OrderTable extends AbsModel {
     private int id;
     private String username;
