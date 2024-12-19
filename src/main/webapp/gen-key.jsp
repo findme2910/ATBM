@@ -49,17 +49,34 @@
         }
 
         .text-center {
-            margin-top: 20px;
+            padding-top: 20px;
         }
+        .container.mt-lg-5{
+            margin-top: 0px !important;
+            padding-top: 50px;
+            background-color: #78ff78;
+            height: 100%;
+            max-width: 800px !important;
+        }
+        body {
+            /*background-color: #78ff78;*/
+        }
+        .btn-block {
+            display: block;
+             width: 50%;
+        }
+
     </style>
 </head>
+<%
+    User user = (User) session.getAttribute("user");
+%>
 <body>
 <%--<jsp:include page="layout/header.jsp"/>--%>
-<div class="container mt-lg-5">
+<div class="container mt-lg-5 ">
     <div class="text-center">
-        <button type="button" class="btn btn-primary" id="btnGenKey">Tạo khóa</button>
+        <h4 class="mb-0">Genkey User: <%= user.getEmail() %></h4>
     </div>
-
     <div class="key">
         <label for="publicKey">Khóa công khai:</label>
         <div>
@@ -85,6 +102,21 @@
             </div>
         </div>
     </div>
+    <div class="key">
+    <div class="d-flex justify-content-sm-between">
+        <button class="btn btn-block btn-secondary" style="background-color: #7fad39; border: #7fad39;">
+            <i class="fa fa-sign-out"></i>
+            <a href="user-profile.jsp" style="text-decoration: none; text-underline: none; color: white;">Thoát</a>
+        </button>
+        <div>
+
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" id="btnGenKey">
+                <i class="fa fa-key"></i>
+                Tạo khóa
+            </button>
+        </div>
+
 </div>
 
 <script>
