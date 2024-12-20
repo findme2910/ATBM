@@ -18,6 +18,12 @@
             margin-top:20px;
             background:#7fad39
         }
+        #genkeyButton{
+            background-color: #fd4545;
+            border: #e75c5c;"
+        }
+
+
     </style>
 </head>
 <%
@@ -40,6 +46,28 @@
         }
     }
 %>
+<%
+    // xác thực userid có publickey không
+    boolean hasPublicKey = false;
+
+    if (user != null) {
+        try {
+            Jdbi jdbi = JDBIConnector.get();
+            String publicKey = jdbi.withHandle(handle ->
+                    handle.createQuery("SELECT publicKey FROM key_table WHERE userId = :userId")
+                            .bind("userId", user.getId())
+                            .mapTo(String.class)
+                            .findOne()
+                            .orElse(null)
+            );
+            hasPublicKey = (publicKey != null && !publicKey.isEmpty());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+%>
+
+
 <body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
@@ -199,7 +227,7 @@
                                         <button class="btn btn-primary" type="submit" style="background-color: #7fad39; border: #7fad39;">Save Changes</button>
                                         </div>
                                         <div class="col d-flex justify-content-end">
-                                            <button class="btn btn-primary" type="submit" style="background-color: #fd4545; border: #e75c5c;">Genkey</button>
+                                            <button id="genkeyButton" class="btn btn-secondary" style="<%= hasPublicKey ? "display:none;" : "" %>"><a href="gen-key.jsp" target="_blank" style="text-decoration: none; text-underline: none; color: white;">Genkey</a></button>
                                         </div>
                                     </div>
                                 </form>
@@ -236,6 +264,7 @@
             passwordField.attr('type', fieldType);
         });
     });
+
 </script>
 </body>
 </html>

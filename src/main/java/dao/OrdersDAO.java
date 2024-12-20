@@ -5,7 +5,6 @@ import db.JDBIConnector;
 import mapper.*;
 import org.jdbi.v3.core.Jdbi;
 
-import javax.persistence.criteria.Order;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 
 	@Override
 	public Integer insertOrder(Orders o) {
-		String sql = "insert into orders(id_user, total_price, shipping_fee, address, phone_number,payment_status,order_status) values(?,?,?,?,?,?,1)";
+		String sql = "insert into orders(id_user, total_price, shipping_fee, address, phone_number,payment_status,order_status) values(?,?,?,?,?,?,6)";
 		return insert(sql, o.getIdUser(), o.getTotalPrice(), o.getShippingFee(), o.getAddress(), o.getPhoneNumber(),o.getPayment_status());
 	}
 
