@@ -117,6 +117,8 @@
                     <i class="fas fa-eye" data-toggle="tooltip" title="Xem chi tiết"></i>
                 </button>
                 <button class="btn btn-primary update-btn" data-toggle="modal" data-target="#editChoiceModal" data-order-id="<%= order.getId() %>"><i class="fa-solid fa-pen-to-square"></i></button>
+                <!-- Trạng thái chữ ký -->
+                <i  data-toggle="tooltip" ></i>
             </td>
         </tr>
         <%
