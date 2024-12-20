@@ -67,13 +67,6 @@
     }
 %>
 
-<!-- Hiển thị nút dựa trên giá trị hasPublicKey -->
-<% if (hasPublicKey) { %>
-<button style="display:none;">Generate Public Key</button>
-<% } else { %>
-<!-- Nếu không có publicKey, hiện nút -->
-<button>Generate Public Key</button>
-<% } %>
 
 <body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
