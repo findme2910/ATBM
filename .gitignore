@@ -12,6 +12,7 @@
 # IntelliJ IDEA
 /.idea/
 /*.iml
+/.smarttomcat/
 
 # NetBeans
 /nbproject/
