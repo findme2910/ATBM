@@ -56,6 +56,13 @@
         body{
             padding-right: 0!important;
         }
+        .text-truncate {
+            white-space: nowrap;
+            overflow: hidden; /* Ẩn phần nội dung vượt quá chiều rộng */
+            text-overflow: ellipsis; /* Thêm dấu "..." nếu nội dung vượt quá chiều rộng */
+
+        }
+
     </style>
 </head>
 <body>
@@ -66,7 +73,18 @@
     <div class="mb-5 d-flex align-items-center">
         <button class="btn btn-info ml-3" id="exportButton">=> Xuất file</button>
     </div>
-    <table id="quanlyTable" class="table table-striped table-bordered" style="width:100%">
+    <div class="mb-5">
+        <label for="filterOrderStatus" style="font-weight: bold;">Lọc theo tình trạng đơn hàng:</label>
+        <select id="filterOrderStatus" class="form-control" style="width: 200px; display: inline-block;">
+            <option value="">Tất cả</option>
+            <option value="Đã Hủy">Đã Hủy</option>
+            <option value="Chờ Xét Duyệt">Chờ Xét Duyệt</option>
+            <option value="Đang Đóng Gói">Đang Đóng Gói</option>
+            <option value="Đang Vận Chuyển">Đang Vận Chuyển</option>
+            <option value="Đã Giao">Đã Giao</option>
+        </select>
+    </div>
+    <table id="quanlyTable" class="table table-striped table-bordered" style="width:100%; table-layout:fixed">
         <thead>
         <tr class="ex">
             <th style="font-weight: bold">Id</th>
@@ -234,77 +252,118 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        // Xử lý khi nhấn vào nút "Cập nhật", lấy ra trường id
-        $(document).on('click', '.update-btn', function() {
-            var orderId = $(this).data('order-id');
-            var orderRow = $(this).closest('tr');
-            // Lấy giá trị hiện tại từ bảng
-            var currentPaymentStatus = orderRow.find('td:eq(6)').text().trim();
-            var currentOrderStatus = orderRow.find('td:eq(7)').text().trim();
-            // convert lại đơn hàng từ chuỗi sang số nguyên
-            var statusValueMap = {
-                "Đã Hủy": 0,
-                "Chờ Xét Duyệt": 1,
-                "Đang Đóng Gói": 2,
-                "Đang Vận Chuyển": 3,
-                "Đã Giao": 4
-            };
-            var currentStatusValue = statusValueMap[currentOrderStatus];
-            // Đặt giá trị mặc định cho các select
-            $('#paymentStatus').val(currentPaymentStatus);
-            $('#orderStatus').val(currentStatusValue);
-            // Lưu orderId cho các modal chỉnh sửa
-            $('.btn-edit-payment, .btn-edit-order').data('order-id', orderId);
+    $(document).ready(function () {
+        // ===== Khởi tạo DataTable =====
+        if ($.fn.DataTable.isDataTable('#quanlyTable')) {
+            $('#quanlyTable').DataTable().destroy();
+        }
 
+        var table = $('#quanlyTable').DataTable({
+            columnDefs: [
+                {
+                    targets: 2, // Cột "Địa Chỉ"
+                    width: '200px',
+                    className: 'text-truncate',
+                },
+            ],
         });
 
-        // Hiển thị chi tiết đơn hàng trong modal
-        $(document).on('click', '.view', function() {
+        // ===== Lọc theo tình trạng đơn hàng =====
+        $('#filterOrderStatus').off('change').on('change', function () {
+            var selectedStatus = $(this).val();
+            if (selectedStatus) {
+                table.column(7).search(selectedStatus).draw();
+            } else {
+                table.column(7).search('').draw();
+            }
+        });
+
+        // ===== Hiển thị chi tiết đơn hàng =====
+        $(document).on('click', '.view', function () {
             var orderId = $(this).data('id');
             $.ajax({
                 type: 'GET',
                 url: 'orderManagement',
                 data: { action: 'view', orderId: orderId },
-                success: function(response) {
+                success: function (response) {
                     var orderDetailsHtml = '';
-                    response.forEach(function(detail) {
+                    response.forEach(function (detail) {
                         orderDetailsHtml += '<tr>';
                         orderDetailsHtml += '<td>' + detail.id + '</td>';
                         orderDetailsHtml += '<td>' + detail.product_name + '</td>';
-                        orderDetailsHtml += '<td><img src="' + detail.img + '" alt="' + detail.product_name + '" style="width: 50px; height: 50px;"></td>';
+                        orderDetailsHtml +=
+                            '<td><img src="' +
+                            detail.img +
+                            '" alt="' +
+                            detail.product_name +
+                            '" style="width: 50px; height: 50px;"></td>';
                         orderDetailsHtml += '<td>' + detail.quantity + '</td>';
-                        orderDetailsHtml += '<td>' + parseInt(detail.priceDetails).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + '</td>';
+                        orderDetailsHtml +=
+                            '<td>' +
+                            parseInt(detail.priceDetails).toLocaleString('vi-VN', {
+                                style: 'currency',
+                                currency: 'VND',
+                            }) +
+                            '</td>';
                         orderDetailsHtml += '</tr>';
                     });
                     $('#orderDetailsContent').html(orderDetailsHtml);
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra khi lấy chi tiết đơn hàng');
-                }
+                },
             });
         });
-        // Hiển thị modal chỉnh sửa thanh toán
-        $('.btn-edit-payment').on('click', function() {
+
+        // ===== Hiển thị modal chỉnh sửa thanh toán =====
+        $('.btn-edit-payment').on('click', function () {
             $('#editChoiceModal').modal('hide');
         });
 
-        // Hiển thị modal chỉnh sửa đơn hàng
-        $('.btn-edit-order').on('click', function() {
+        // ===== Hiển thị modal chỉnh sửa đơn hàng =====
+        $('.btn-edit-order').on('click', function () {
             $('#editChoiceModal').modal('hide');
         });
 
-        // Xử lý form chỉnh sửa thanh toán
-        $('#editPaymentForm').on('submit', function(e) {
+        // ===== Xử lý khi nhấn nút "Cập nhật" =====
+        $(document).on('click', '.update-btn', function () {
+            var orderId = $(this).data('order-id');
+            var orderRow = $(this).closest('tr');
+
+            // Lấy giá trị hiện tại từ bảng
+            var currentPaymentStatus = orderRow.find('td:eq(6)').text().trim();
+            var currentOrderStatus = orderRow.find('td:eq(7)').text().trim();
+
+            // Convert tình trạng đơn hàng
+            var statusValueMap = {
+                "Đã Hủy": 0,
+                "Chờ Xét Duyệt": 1,
+                "Đang Đóng Gói": 2,
+                "Đang Vận Chuyển": 3,
+                "Đã Giao": 4,
+            };
+            var currentStatusValue = statusValueMap[currentOrderStatus];
+
+            // Đặt giá trị mặc định cho các select
+            $('#paymentStatus').val(currentPaymentStatus);
+            $('#orderStatus').val(currentStatusValue);
+
+            // Lưu orderId cho các modal chỉnh sửa
+            $('.btn-edit-payment, .btn-edit-order').data('order-id', orderId);
+        });
+
+        // ===== Xử lý form chỉnh sửa thanh toán =====
+        $('#editPaymentForm').on('submit', function (e) {
             e.preventDefault();
             var orderId = $('.btn-edit-payment').data('order-id');
             var paymentStatus = $('#paymentStatus').val();
+
             // Gửi AJAX để cập nhật trạng thái thanh toán
             $.ajax({
                 type: 'POST',
                 url: 'orderManagement',
                 data: { action: 'updatePayment', orderId: orderId, paymentStatus: paymentStatus },
-                success: function(response) {
+                success: function (response) {
                     if (response === 'Success') {
                         alert('Cập nhật thành công');
                         $('#editPaymentModal').modal('hide');
@@ -315,23 +374,24 @@
                         $('#errorModal').modal('show');
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra');
-                }
+                },
             });
         });
 
-        // Xử lý form chỉnh sửa đơn hàng
-        $('#editOrderForm').on('submit', function(e) {
+        // ===== Xử lý form chỉnh sửa đơn hàng =====
+        $('#editOrderForm').on('submit', function (e) {
             e.preventDefault();
             var orderId = $('.btn-edit-order').data('order-id');
             var orderStatus = $('#orderStatus').val();
+
             // Gửi AJAX để cập nhật trạng thái đơn hàng
             $.ajax({
                 type: 'POST',
                 url: 'orderManagement',
                 data: { action: 'updateOrder', orderId: orderId, orderStatus: orderStatus },
-                success: function(response) {
+                success: function (response) {
                     if (response === 'Success') {
                         alert('Cập nhật thành công');
                         $('#editOrderModal').modal('hide');
@@ -342,21 +402,19 @@
                         $('#errorModal').modal('show');
                     }
                 },
-                error: function() {
+                error: function () {
                     alert('Có lỗi xảy ra');
-                }
+                },
             });
         });
 
-
-        // Xuất file excel
-        $('#exportButton').on('click', function() {
+        // ===== Xuất file Excel =====
+        $('#exportButton').on('click', function () {
             var tableElement = document.getElementById('quanlyTable');
-            var wb = XLSX.utils.table_to_book(tableElement, {sheet: "Sheet1"});
+            var wb = XLSX.utils.table_to_book(tableElement, { sheet: 'Sheet1' });
             XLSX.writeFile(wb, 'OrderDetails.xlsx');
         });
     });
-
 </script>
 </body>
 </html>
