@@ -399,13 +399,17 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'OrderHistoryCL',
+                url: 'SignOrder',
                 data: {action: 'sign', orderId: orderIdParam, privateKey: privateKey},
                 success: function (response) {
                     Swal.fire({
                         titleText: response,
                         icon: "success"
                     });
+                    location.reload();
+                    $('#signOrderModal').modal('hide');
+                    $('#orderDetailModal').modal('hide');
+
                 },
                 error: function (error) {
                     const errorMessage = error.responseText;

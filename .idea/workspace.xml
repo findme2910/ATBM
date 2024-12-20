@@ -9,17 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Thêm trang Tao khóa">
-      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/DigitalSignatureException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Thêm exceoption để hiển thị thông báo, thêm trang thái &quot;Chưa kí&quot;, thêm xử lý ký đơn hàng, ....">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Service/DigitalSignature/DigitalSignatureService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/DigitalSignature/DigitalSignatureService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bean/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bean/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Service/IOrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/IOrdersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/OrdersService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/OrderHistoryCL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/OrderHistoryCL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/exceptions/DigtialSignatureException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/DigitalSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/DigitalSignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/gen-key.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/gen-key.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ThanhToanCL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ThanhToanCL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/OrdersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/OrdersDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/history.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/thanh-toan.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/thanh-toan.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,10 +30,10 @@
         <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="Servlet" />
         <option value="package-info" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Servlet" />
         <option value="Jsp File" />
       </list>
     </option>
@@ -414,8 +412,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
       </set>
     </attachedChunks>
   </component>
@@ -599,7 +597,9 @@
       <workItem from="1734449893215" duration="766000" />
       <workItem from="1734486791465" duration="11779000" />
       <workItem from="1734538178204" duration="5372000" />
-      <workItem from="1734578567000" duration="13057000" />
+      <workItem from="1734578567000" duration="17059000" />
+      <workItem from="1734610472449" duration="9281000" />
+      <workItem from="1734685806920" duration="324000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -729,7 +729,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734543543840</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Thêm exceoption để hiển thị thông báo, thêm trang thái &quot;Chưa kí&quot;, thêm xử lý ký đơn hàng, ....">
+      <option name="closed" value="true" />
+      <created>1734592141240</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1734592141240</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -760,6 +768,7 @@
     <MESSAGE value="Fix run project" />
     <MESSAGE value="Thêm các phần cơ bản cho Chữ ký điện tử" />
     <MESSAGE value="Thêm trang Tao khóa" />
-    <option name="LAST_COMMIT_MESSAGE" value="Thêm trang Tao khóa" />
+    <MESSAGE value="Thêm exceoption để hiển thị thông báo, thêm trang thái &quot;Chưa kí&quot;, thêm xử lý ký đơn hàng, ...." />
+    <option name="LAST_COMMIT_MESSAGE" value="Thêm exceoption để hiển thị thông báo, thêm trang thái &quot;Chưa kí&quot;, thêm xử lý ký đơn hàng, ...." />
   </component>
 </project>
