@@ -18,7 +18,51 @@
             margin-top:20px;
             background:#7fad39
         }
-    </style>
+        #genkeyButton{
+            background-color: #fd4545;
+            border: #e75c5c;"
+        }
+        #info-keyButton{
+            background-color: #1a8be8;
+            border: #1a8be8;"
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 50%;
+            max-width: 500px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+
+        }
+
+
+
+</style>
 </head>
 <%
     User user = (User) session.getAttribute("user");
@@ -40,6 +84,33 @@
         }
     }
 %>
+<%
+    // xác thực userid có publickey không
+    boolean hasPublicKey = true;
+    String InfopublicKey = "Không tồn tại";
+
+    if (user != null) {
+        try {
+            Jdbi jdbi = JDBIConnector.get();
+            String publicKey = jdbi.withHandle(handle ->
+                    handle.createQuery("SELECT publicKey FROM keys WHERE userId = :userId")
+                            .bind("userId", user.getId())
+                            .mapTo(String.class)
+                            .findOne()
+                            .orElse(null)
+            );
+            hasPublicKey = (publicKey != null && !publicKey.isEmpty());
+            InfopublicKey = publicKey;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+%>
+
+
 <body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
@@ -198,6 +269,10 @@
                                         <div class="col d-flex justify-content-start">
                                         <button class="btn btn-primary" type="submit" style="background-color: #7fad39; border: #7fad39;">Save Changes</button>
                                         </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <button id="genkeyButton" class="btn btn-secondary" style="<%= hasPublicKey ? "display:none;" : "display:block;" %>"><a href="gen-key.jsp" target="_blank" style="text-decoration: none; text-underline: none; color: white;">Genkey</a></button>
+                                            <button id="info-keyButton" class="btn btn-secondary" style="<%= hasPublicKey ? "display:block;" : "display:none;" %>">Báo cáo</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -222,6 +297,23 @@
     </div>
 </div>
 </div>
+
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <div class="text-center">
+            <h4 class="mb-0">Người dùng: <%= user.getEmail() %></h4>
+        </div>
+        <span class="close-btn" id="closeLightbox">&times;</span>
+        <p>Last Seen: <%= lastSeenMessage %></p>
+        <p>Thông tin key của người dùng</p>
+        <p>Public Key: <%= InfopublicKey  %></p>
+        <p>* Lưu ý : nếu key hiện tại của bạn không trùng với key hệ thống đã lưu, vui lòng nhấn report để cấp lại key </p>
+        <div class="col d-flex justify-content-center">
+            <button id="report-keyButton" class="btn btn-secondary">Report</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"></script>
@@ -233,6 +325,74 @@
             passwordField.attr('type', fieldType);
         });
     });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const reportButton = document.getElementById("info-keyButton");
+        const lightbox = document.getElementById("lightbox");
+        const closeLightbox = document.getElementById("closeLightbox");
+
+        reportButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            lightbox.style.display = "flex";
+        });
+
+        closeLightbox.addEventListener("click", function () {
+            lightbox.style.display = "none";
+        });
+
+        window.addEventListener("click", function (e) {
+            if (e.target === lightbox) {
+                lightbox.style.display = "none";
+            }
+        });
+    });
+
+
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     const reportButton = document.getElementById("report-keyButton");
+    //
+    //     reportButton.addEventListener("click", function () {
+    //         const userConfirmed = confirm("Bạn có chắc chắn muốn vô hiệu hóa cặp key hiện tại không?");
+    //
+    //         if (userConfirmed) {
+    //             alert("Đã vô hiệu hóa cặp key hiện tại, vui lòng tạo key mới nếu muốn mua hàng!");
+    //         }
+    //     });
+    // });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteKeyButton = document.getElementById("report-keyButton");
+
+        deleteKeyButton.addEventListener("click", function () {
+            const userConfirmed = confirm("Bạn có chắc chắn muốn xóa cặp key này không?");
+            if (userConfirmed) {
+                fetch('/delete-double-key', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId: USER_ID })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Cặp key đã được xóa thành công!");
+                            location.reload();
+                        } else {
+                            alert("Xóa cặp key thất bại. Vui lòng thử lại!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Đã xảy ra lỗi. Vui lòng thử lại!");
+                    });
+            }
+        });
+    });
+
+    const USER_ID = <%= user != null ? user.getId() : "null" %>;
+
 </script>
 </body>
 </html>
