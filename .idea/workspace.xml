@@ -9,15 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Thêm exceoption để hiển thị thông báo, thêm trang thái &quot;Chưa kí&quot;, thêm xử lý ký đơn hàng, ....">
+    <list default="true" id="b4b7277f-3123-43a3-8334-fad619072ac6" name="Changes" comment="Thêm class chứa thông tin định danh người dùng">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Service/IOrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/IOrdersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/OrdersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/OrderHistoryCL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/OrderHistoryCL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/ThanhToanCL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/ThanhToanCL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/OrdersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/OrdersDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Service/DigitalSignature/DigitalSignatureService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/DigitalSignature/DigitalSignatureService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/DigitalSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/DigitalSignatureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/DigitalSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/DigitalSignature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/gen-key.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/gen-key.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/history.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-register/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-register/login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/thanh-toan.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/thanh-toan.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/verify.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/verify.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +36,9 @@
         <option value="JavaScript File" />
         <option value="package-info" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Servlet" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -114,6 +118,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Tai&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;java.suggest.annotation.dependency&quot;: &quot;false&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/ngoctaiphan/WorkSpace/SercuritySofware/ATBM/src/main/java/dao&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -599,7 +604,10 @@
       <workItem from="1734538178204" duration="5372000" />
       <workItem from="1734578567000" duration="17059000" />
       <workItem from="1734610472449" duration="9281000" />
-      <workItem from="1734685806920" duration="324000" />
+      <workItem from="1734685806920" duration="3601000" />
+      <workItem from="1734711623451" duration="485000" />
+      <workItem from="1734757062567" duration="8642000" />
+      <workItem from="1734863842585" duration="13907000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
@@ -737,7 +745,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734592141240</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Tách servlet xử lý ký đơn hàng ra riêng">
+      <option name="closed" value="true" />
+      <created>1734686247756</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1734686247756</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Thêm class chứa thông tin định danh người dùng">
+      <option name="closed" value="true" />
+      <created>1734878386396</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1734878386396</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -769,6 +793,18 @@
     <MESSAGE value="Thêm các phần cơ bản cho Chữ ký điện tử" />
     <MESSAGE value="Thêm trang Tao khóa" />
     <MESSAGE value="Thêm exceoption để hiển thị thông báo, thêm trang thái &quot;Chưa kí&quot;, thêm xử lý ký đơn hàng, ...." />
-    <option name="LAST_COMMIT_MESSAGE" value="Thêm exceoption để hiển thị thông báo, thêm trang thái &quot;Chưa kí&quot;, thêm xử lý ký đơn hàng, ...." />
+    <MESSAGE value="Tách servlet xử lý ký đơn hàng ra riêng" />
+    <MESSAGE value="Thêm class chứa thông tin định danh người dùng" />
+    <option name="LAST_COMMIT_MESSAGE" value="Thêm class chứa thông tin định danh người dùng" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="exceptions.DigitalSignatureException" package="exceptions" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

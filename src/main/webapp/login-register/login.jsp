@@ -10,6 +10,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page%>
+<%
+    String action = request.getParameter("action");
+    if (action == null) action = "";
+%>
 
 <html>
 <head>
@@ -23,6 +27,8 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript">
+        let action = '<%= action %>';
+        console.log(action);
         $(document).ready(function() {
             $('#btnLogin').click(function (event) {
                 event.preventDefault();
@@ -33,6 +39,7 @@
                 $.ajax({
                     type: 'POST',
                     data: {
+
                         email: email,
                         password: password,
                         rememberMe: rememberMe
@@ -53,7 +60,11 @@
                                     if (data.role === 1) {
                                         window.location.href = "admin_dashboard";
                                     } else if (data.role === 0) {
-                                        window.location.href = "HomePageController";
+                                        if (action === "genkey") {
+                                            window.location.href = "gen-key.jsp";
+                                        } else {
+                                            window.location.href = "HomePageController";
+                                        }
                                     }
                                 }
                             }
@@ -125,7 +136,14 @@
 <section class="container forms">
     <div class="form login">
         <div class="form-content">
+            <%
+                if (action.equals("genkey")) {
+
+            %>
+            <header>Đăng nhập trước để tạo khóa</header>
+            <%} else if (action.isEmpty() || action.equals("") || action == null) {%>
             <header>Login</header>
+            <%}%>
             <form id="form">
                 <% String passF = (String) session.getAttribute("action"); %>
                 <% if(passF != null) { %>
