@@ -22,8 +22,13 @@ public class DigitalSignature {
     public DigitalSignature() {
     }
     // Tao khoa neu chua co khoa
-    public void generateKeyPair() throws Exception {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGO);
+    public void generateKeyPair() throws DigitalSignatureException {
+        KeyPairGenerator keyGen = null;
+        try {
+            keyGen = KeyPairGenerator.getInstance(ALGO);
+        } catch (NoSuchAlgorithmException e) {
+            throw new DigitalSignatureException("Thuật toán tạo key không hợp lệ: " + ALGO, e);
+        }
         keyGen.initialize(KEY_SIZE);
         KeyPair keyPair = keyGen.generateKeyPair();
         this.privateKey = keyPair.getPrivate();

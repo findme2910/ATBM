@@ -4,10 +4,7 @@ import bean.ShoppingCart;
 import bean.User;
 import dao.AccountDAO;
 import dao.LogDao;
-import dao.OrdersDAO;
 import dao.UserDAO;
-import debug.LoggingConfig;
-import utils.PasswordUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +12,6 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.util.logging.Logger;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginControl extends HttpServlet {
@@ -80,9 +76,12 @@ public class LoginControl extends HttpServlet {
                         out.println("{\"error\":\"Bạn đã còn "+ (5 - (loginFail+1)) +" lần đăng nhập.\"}");
                     }
                 } else {
-                    if(checkEmail == null) out.println("{\"error\":\"Tài khoản không đúng, vui lòng kiểm tra lại!\"}");
-                    else if(checkEmail.getActive()==0) out.println("{\"error\":\"Tài khoản chưa được kích hoạt để đăng nhập!\"}");
-                    else if(checkEmail.getActive()==2) out.println("{\"error\":\"chúng tôi đã khóa tài khoản "+email+"\"}");
+                    if(checkEmail == null)
+                        out.println("{\"error\":\"Tài khoản không đúng, vui lòng kiểm tra lại!\"}");
+                    else if(checkEmail.getActive()==0)
+                        out.println("{\"error\":\"Tài khoản chưa được kích hoạt để đăng nhập!\"}");
+                    else if(checkEmail.getActive()==2)
+                        out.println("{\"error\":\"chúng tôi đã khóa tài khoản "+email+"\"}");
                 }
             } else {
                 AccountDAO.getInstance().updateLoginFail(email, 0);

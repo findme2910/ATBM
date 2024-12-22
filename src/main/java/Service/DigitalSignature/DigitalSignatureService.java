@@ -4,6 +4,7 @@ import bean.User;
 import bean.digitalsignature.Keys;
 import bean.digitalsignature.OrderSign;
 import bean.digitalsignature.SignedOrder;
+import bean.digitalsignature.VerifyUser;
 import dao.digitalsignature.IDAO;
 import dao.digitalsignature.KeyDAO;
 import dao.digitalsignature.SignedOrderDAO;
@@ -25,33 +26,31 @@ public class DigitalSignatureService {
 
     }
 
+    public String getPrivateKey() {
+        return digitalSignature.keyToBase64(digitalSignature.getPrivateKey());
+    }
+
+    public String getPublicKey() {
+        return digitalSignature.keyToBase64(digitalSignature.getPublicKey());
+    }
+
+    public void genKey() throws DigitalSignatureException {
+        digitalSignature.generateKeyPair();
+    }
     public void verifyUser(User user, String privateKey) throws DigitalSignatureException {
         Keys key = keysDAO.get(user.getId());
         String publicKey = key.getPublicKey();
         //Load public key
         digitalSignature.loadPublicKey(publicKey);
         //Lấy thông tin ngừoi dùng đã được hash
-        String userInfor = userInfor(user, privateKey);
+        String userInfor = new VerifyUser(user.getId(), user.getCreateAt(), privateKey).toString();
 //Xác thực ngừoi dùng
         System.out.println("Xác thực ngừoi dùng");
         System.out.println(digitalSignature.verifySignature(userInfor, key.getUserSignature()));
 
     }
 
-    //Tạo thông tin ngừoi dùng để xác thực
-    public void genUserKey(User user, String privateKey) throws DigitalSignatureException {
-        digitalSignature.loadPrivateKey(privateKey);
-        String userSign = userInfor(user, privateKey);
 
-        String sign = digitalSignature.signDataBase64(userSign);
-        System.out.println(sign);
-
-    }
-
-    //Hash thông tin người dùng với các trường không thay đổi được
-    public String userInfor(User user, String privateKey) throws DigitalSignatureException {
-        return hash(user.getId() + user.getCreateAt().toString() + hash(privateKey));
-    }
 
     //Ký đơn hàng
     public void signOrder(OrderSign orderSign, String privateKey, User user) throws DigitalSignatureException {
@@ -67,7 +66,7 @@ public class DigitalSignatureService {
         String signedOrder = digitalSignature.signDataBase64(hashOrder);
         System.out.println(signedOrder);
         System.out.println("Insert đơn hàng");
-        signedOrderDAO.insert(new SignedOrder(orderSign.getId(), keyId, signedOrder, 0));
+        signedOrderDAO.insert(new SignedOrder(orderSign.getId(), keyId, signedOrder, 1));
 
         System.out.println("Ký thành công!");
 
@@ -91,6 +90,21 @@ public class DigitalSignatureService {
         System.out.println(verify);
     }
 
+    public void saveKeyWithUser(User user, String privateKey, String publicKey) throws DigitalSignatureException {
+
+        digitalSignature = new DigitalSignature();
+        digitalSignature.loadPublicKey(publicKey);
+        digitalSignature.loadPrivateKey(privateKey);
+        //Chữ ký định danh ngừoi dùng : id + thời gian tại tài khoản + hash private key
+        String userSignature = digitalSignature.signDataBase64(new VerifyUser(user.getId(), user.getCreateAt(), privateKey).toString());
+        //insert chỉ lấy userId, publicKey và userSignature
+        keysDAO.insert(new Keys(0, user.getId(), publicKey, null, true, userSignature));
+
+    }
+
+    public boolean isExitsKeys(User user) {
+        return keysDAO.get(user.getId()) != null;
+    }
 //    public static void main(String[] args) {
 //        DigitalSignatureService digitalSignatureService = new DigitalSignatureService();
 //    }
