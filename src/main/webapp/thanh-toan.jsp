@@ -215,7 +215,7 @@
                             <input type="hidden" id="phuongFullName" name="phuongFullName">
                             <input id="hidden" type="hidden" name="action" value="order">
                             <button type="submit" class="site-btn" >Đặt hàng</button>
-                            <button type="button" class="site-btn" id="payButton">Thanh toán ngay</button>
+<%--                            <button type="button" class="site-btn" id="payButton">Thanh toán ngay</button>--%>
                         </div>
                     </div>
                 </div>

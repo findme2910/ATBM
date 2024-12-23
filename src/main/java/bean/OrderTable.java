@@ -22,7 +22,7 @@ public class OrderTable extends AbsModel {
     private String payment_status;
     private int order_status;
     private String orderStatusText;
-
+    private int signatureStatus; //trạng thái chữ kí
 
     @Override
     public String getTable() {
@@ -61,5 +61,12 @@ public class OrderTable extends AbsModel {
     public void setOrderStatusText() {
         this.orderStatusText = Utility.getOrderStatus(this.order_status);
 
+    }
+    public int getSignatureStatus() {
+        return signatureStatus;
+    }
+
+    public void setSignatureStatus(int signatureStatus) {
+        this.signatureStatus = signatureStatus;
     }
 }

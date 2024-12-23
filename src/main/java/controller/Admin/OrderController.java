@@ -1,12 +1,14 @@
 package controller.Admin;
 
-import bean.Log;
+
 import bean.OrderDetailTable;
 import bean.OrderTable;
 import com.google.gson.Gson;
+
 import dao.IOrdersDAO;
 import dao.LogDao;
 import dao.OrdersDAO;
+import dao.digitalsignature.SignedOrderDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,11 +22,13 @@ import java.util.List;
 public class OrderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private IOrdersDAO orderDao;
+    private SignedOrderDAO signedOrderDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
         orderDao = new OrdersDAO();
+        signedOrderDAO = new SignedOrderDAO();
     }
 
     @Override
@@ -45,7 +49,10 @@ public class OrderController extends HttpServlet {
         for (OrderTable order : listOrder) {
             List<OrderDetailTable> listOrderDetail = orderDao.getOrderDetailsByOrderId(order.getId());
             order.setListDetails(listOrderDetail);
+            int signatureStatus = signedOrderDAO.getSignatureStatus(order.getId());
+            order.setSignatureStatus(signatureStatus);
         }
+
         req.setAttribute("listOrder", listOrder);
         req.getRequestDispatcher("admin_page/quanlyDonHang.jsp").forward(req, resp);
     }

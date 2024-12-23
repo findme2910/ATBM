@@ -102,6 +102,18 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
         }
     }
 
+    //Lấy ra danh sách trạng thái sig dựa vào orderID
+    public int getSignatureStatus(int orderId) {
+        String sql = "SELECT orderStatus FROM `signed-orders` WHERE orderId = ?";
+        try (Handle handle = JDBIConnector.getJdbi().open()) {
+            return handle.createQuery(sql)
+                    .bind(0, orderId)
+                    .mapTo(int.class)
+                    .findOne()
+                    .orElse(2); // Mặc định trả về 2 (Chưa được ký) nếu không có dữ liệu
+        }
+    }
+
     public static void main(String[] args) {
         SignedOrderDAO signedOrderDAO = SignedOrderDAO.getInstance();
 
@@ -109,7 +121,7 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
 //        boolean inserted = dao.insert(newOrder);
 //        System.out.println("Insert success: " + inserted);
 
-        SignedOrder order = signedOrderDAO.getById(5);
+        int order = signedOrderDAO.getSignatureStatus(1);
         System.out.println(order);
 //
 //        if (order.isPresent()) {
