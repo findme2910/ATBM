@@ -62,7 +62,34 @@
             text-overflow: ellipsis; /* Thêm dấu "..." nếu nội dung vượt quá chiều rộng */
 
         }
+        table.table td:last-child {
+            font-size: 14px;
+            white-space: nowrap; /* Không cho phép xuống dòng */
+            vertical-align: middle; /* Căn giữa nội dung theo chiều dọc */
+        }
+        .btn-signature-status {
+            display: inline-block;
+            width: 38px; /* Chiều rộng giống nút khác */
+            height: 38px; /* Chiều cao giống nút khác */
+            border: 1px solid #dee2e6; /* Đường viền */
+            border-radius: 4px; /* Bo góc */
+            background-color: #ffe4e1; /* Màu nền */
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+        }
 
+        .btn-signature-status i {
+            line-height: 38px; /* Căn giữa icon */
+            font-size: 16px;
+        }
+
+        .btn-signature-status:hover {
+            background-color: #ffcccb; /* Màu nền khi hover */
+        }
+        #quanlyTable_filter{
+            margin-right:-60px;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +111,7 @@
             <option value="Đã Giao">Đã Giao</option>
         </select>
     </div>
-    <table id="quanlyTable" class="table table-striped table-bordered" style="width:100%; table-layout:fixed">
+    <table id="quanlyTable" class="table table-striped table-bordered" style="width:105%; table-layout:fixed">
         <thead>
         <tr class="ex">
             <th style="font-weight: bold">Id</th>
@@ -95,7 +122,7 @@
             <th style="font-weight: bold">Ngày Tạo</th>
             <th style="font-weight: bold">Thanh Toán</th>
             <th style="font-weight: bold">Tình Trạng Đơn Hàng</th>
-            <th style="width:100px;font-weight: bold">Tính Năng</th>
+            <th style="font-weight: bold">Tính Năng</th>
         </tr>
         </thead>
         <tbody id='tableBody'>
@@ -113,12 +140,46 @@
             <td><%= order.getPayment_status() %></td>
             <td><%= Utility.getOrderStatus(order.getOrder_status()) %></td>
             <td>
+                <!-- Nút Xem chi tiết -->
                 <button class="btn btn-view view" data-toggle="modal" data-target="#orderDetailModal" data-id="<%= order.getId() %>">
                     <i class="fas fa-eye" data-toggle="tooltip" title="Xem chi tiết"></i>
                 </button>
-                <button class="btn btn-primary update-btn" data-toggle="modal" data-target="#editChoiceModal" data-order-id="<%= order.getId() %>"><i class="fa-solid fa-pen-to-square"></i></button>
-                <!-- Trạng thái chữ ký -->
-                <i  data-toggle="tooltip" ></i>
+                <!-- Nút Chỉnh sửa -->
+                <button class="btn btn-primary update-btn" data-toggle="modal" data-target="#editChoiceModal" data-order-id="<%= order.getId() %>">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <!-- Nút trạng thái chữ ký -->
+                <%
+                    int signatureStatus = order.getSignatureStatus();
+                    String iconClass = "";
+                    String tooltipText = "";
+                    String btnClass = "btn-signature-status";
+
+                    switch (signatureStatus) {
+                        case -1:
+                            iconClass = "fas fa-exclamation-circle text-danger";
+                            tooltipText = "Đã bị thay đổi";
+                            break;
+                        case 0:
+                            iconClass = "fas fa-question-circle text-warning";
+                            tooltipText = "Chưa Verify";
+                            break;
+                        case 1:
+                            iconClass = "fas fa-check-circle text-success";
+                            tooltipText = "Đã Verify";
+                            break;
+                        case 2:
+                            iconClass = "fas fa-times-circle text-secondary";
+                            tooltipText = "Chưa được ký";
+                            break;
+                        default:
+                            iconClass = "fas fa-info-circle text-dark";
+                            tooltipText = "Không xác định";
+                    }
+                %>
+                <button class="<%= btnClass %>" data-toggle="tooltip" title="<%= tooltipText %>">
+                    <i class="<%= iconClass %>"></i>
+                </button>
             </td>
         </tr>
         <%
@@ -263,9 +324,13 @@
         var table = $('#quanlyTable').DataTable({
             columnDefs: [
                 {
-                    targets: 2, // Cột "Địa Chỉ"
+                    targets: 2,
                     width: '200px',
                     className: 'text-truncate',
+                },
+                {
+                    targets: 8,
+                    width: '125px',
                 },
             ],
         });
@@ -416,6 +481,8 @@
             var wb = XLSX.utils.table_to_book(tableElement, { sheet: 'Sheet1' });
             XLSX.writeFile(wb, 'OrderDetails.xlsx');
         });
+        //kích hoạt tooltip
+        $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
 </body>

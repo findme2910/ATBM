@@ -249,8 +249,8 @@ public class DigitalSignature {
             String publicKeyBase64 = ds.keyToBase64(ds.getPublicKey());
             System.out.println("Private Key: " + privateKeyBase64);
             System.out.println("Public Key: " + publicKeyBase64);
-            ds.savePublicKeyToFile("/home/ngoctaiphan/Desktop/WorkSpace/SercuritySofware/Key/publickey");
-            ds.savePrivateKeyToFile("/home/ngoctaiphan/Desktop/WorkSpace/SercuritySofware/Key/privatekey");
+            ds.savePublicKeyToFile("D:/Study/Four_year/ATTT/testkey/publickey");
+            ds.savePrivateKeyToFile("D:/Study/Four_year/ATTT/testkey/privatekey");
 //            // Dữ liệu cần ký
 //            String data = "This is a test message.";
 //
