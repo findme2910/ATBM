@@ -1,157 +1,311 @@
-<%@ page import="java.util.List" %>
-<%@ page import="bean.*" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
-    <title>Vườn phố</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <%--    Database css boostrap--%>
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/Log_Regis.css">
+    <title>Tạo Key</title>
+    <link rel="stylesheet" href="/css/style.css">
     <style>
-        .btn-custom {
-            background-color: #7FAD39;
-            color: white;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        .btn-custom:hover {
-            background-color: white;
-            color: #7FAD39;
-            border: 1px solid #7FAD39;
-        }
-
-        .key {
-            margin: 20px auto;
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
             width: 100%;
-            max-width: 600px;
-            position: relative;
+            max-width: 400px;
         }
 
-        textarea {
-            width: 100%;
-            height: 150px;
-            resize: none;
-            padding-right: 40px;
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 1rem;
         }
 
-        .icon {
-            position: absolute;
-            top: 40px;
-            right: 10px;
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+
+
+        .alert {
+            margin-top: 1rem;
+            font-size: 14px;
+            color: green;
+        }
+
+        .alert.error {
+            color: red;
+        }
+        /* From Uiverse.io by MuhammadHasann */
+        .button {
+
+            --border_radius: 9999px;
+            --transtion: 0.3s ease-in-out;
+            --offset: 2px;
+
             cursor: pointer;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            transform-origin: center;
+
+            padding: 0.5rem 1rem;
+
+            border: none;
+            border-radius: var(--border_radius);
+            transform: scale(calc(1 + (var(--active, 0) * 0.1)));
+
+            transition: transform var(--transtion);
         }
 
-        .text-center {
-            margin-top: 20px;
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background-color: var(--black-700);
+            border-radius: var(--border_radius);
+            box-shadow: inset 0 0.5px hsl(0, 0%, 100%), inset 0 -1px 2px 0 hsl(0, 0%, 0%),
+            0px 4px 10px -4px hsla(0 0% 0% / calc(1 - var(--active, 0))),
+            0 0 0 calc(var(--active, 0) * 0.375rem) hsl(260 97% 50% / 0.75);
+
+            transition: all var(--transtion);
+            z-index: 0;
+        }
+
+        .button::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 100%;
+            height: 100%;
+            background-color: hsla(260 97% 61% / 0.75);
+            background-image: radial-gradient(
+                    at 51% 89%,
+                    hsla(266, 45%, 74%, 1) 0px,
+                    transparent 50%
+            ),
+            radial-gradient(at 100% 100%, hsla(266, 36%, 60%, 1) 0px, transparent 50%),
+            radial-gradient(at 22% 91%, hsla(266, 36%, 60%, 1) 0px, transparent 50%);
+            background-position: top;
+
+            opacity: var(--active, 0);
+            border-radius: var(--border_radius);
+            transition: opacity var(--transtion);
+            z-index: 2;
+        }
+
+        .button:is(:hover, :focus-visible) {
+            --active: 1;
+        }
+        .button:active {
+            transform: scale(1);
+        }
+
+        .button .dots_border {
+            --size_border: calc(100% + 2px);
+
+            overflow: hidden;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: var(--size_border);
+            height: var(--size_border);
+            background-color: transparent;
+
+            border-radius: var(--border_radius);
+            z-index: -10;
+        }
+
+        .button .dots_border::before {
+            content: "";
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: left;
+            transform: rotate(0deg);
+
+            width: 100%;
+            height: 2rem;
+            background-color: white;
+
+            mask: linear-gradient(transparent 0%, white 120%);
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .button .sparkle {
+            position: relative;
+            z-index: 10;
+
+            width: 1.75rem;
+        }
+
+        .button .sparkle .path {
+            fill: currentColor;
+            stroke: currentColor;
+
+            transform-origin: center;
+
+            color: hsl(0, 0%, 100%);
+        }
+
+        .button:is(:hover, :focus) .sparkle .path {
+            animation: path 1.5s linear 0.5s infinite;
+        }
+
+        .button .sparkle .path:nth-child(1) {
+            --scale_path_1: 1.2;
+        }
+        .button .sparkle .path:nth-child(2) {
+            --scale_path_2: 1.2;
+        }
+        .button .sparkle .path:nth-child(3) {
+            --scale_path_3: 1.2;
+        }
+
+        @keyframes path {
+            0%,
+            34%,
+            71%,
+            100% {
+                transform: scale(1);
+            }
+            17% {
+                transform: scale(var(--scale_path_1, 1));
+            }
+            49% {
+                transform: scale(var(--scale_path_2, 1));
+            }
+            83% {
+                transform: scale(var(--scale_path_3, 1));
+            }
+        }
+
+        .button .text_button {
+            position: relative;
+            z-index: 10;
+            background-image: linear-gradient(
+                    90deg,
+                    hsla(0 0% 100% / 1) 0%,
+                    hsla(0 0% 100% / var(--active, 0)) 120%
+            );
+            background-clip: text;
+            font-size: 1rem;
+            color: transparent;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-<%--<jsp:include page="layout/header.jsp"/>--%>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<div class="container mt-lg-5">
-
-    <div class="text-center">
-        <button type="button" class="btn btn-custom" id="btnGenKey">Tạo khóa</button>
+<div class="container">
+    <h1>Tạo Key Cho người dùng</h1>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <button id="loadPublicKeyButton" class="button">Load Public Key</button>
+        <button id="openToolButton" class="button">Tool Tạo Key</button>
     </div>
 
-    <div class="key">
-        <label for="publicKey">Khóa công khai:</label>
-        <div>
-            <textarea name="publicKey" id="publicKey" readonly></textarea>
-            <div>
-
-                <i style="margin-right: 50px" class="btn btn-secondary fas fa-copy icon" title="Sao chép"
-                ></i>
-                <i class="btn btn-primary  fas fa-save icon" title="Lưu"></i>
-            </div>
+    <form id="publicKeyForm">
+        <div style="margin-bottom: 10px;">
+            <label for="publicKeyInput">Public Key:</label>
+            <textarea id="publicKeyInput" name="publicKey" placeholder="Paste your public key here" style="width: 100%; height: 100px;"></textarea>
         </div>
-    </div>
-
-    <div class="key">
-        <label for="privatekey">Khóa riêng tư:</label>
-        <div>
-            <textarea name="privatekey" id="privatekey" readonly></textarea>
-            <div>
-
-                <i style="margin-right: 50px" class="btn btn-secondary fas fa-copy icon" title="Sao chép"
-                ></i>
-                <i class="btn btn-primary  fas fa-save icon" title="Lưu"></i>
-            </div>
+        <div style="margin-bottom: 20px;">
+            <label for="fileInput">Hoặc chọn file chứa Public Key:</label>
+            <input type="file" id="fileInput" accept=".txt">
         </div>
-    </div>
+        <button type="button" id="savePublicKeyButton" class="button">Xác nhận</button>
+    </form>
+    <div id="alert" class="alert"></div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     $(document).ready(function () {
-        $('#btnGenKey').click(function () {
-
+        // Xử lý nút "Load Public Key"
+        $('#loadPublicKeyButton').click(function () {
             $.ajax({
-                url: 'SignOrder',
-                type: 'GET',
-                data: {action:'genkey'},
-                success: function (data) {
-                    $('#publicKey').val(data.publicKey);
-                    $('#privatekey').val(data.privateKey);
+                url: '/SignOrder',
+                method: 'GET',
+                data: { action: 'loadPublicKey' },
+                success: function (response) {
+                    $('#publicKeyInput').val(response.publicKey);
                 },
-                error: function (e) {
-                    const text = e.responseText;
-                    Swal.fire({
-                        titleText: text,
-                        icon: "error"
-                    });
+                error: function () {
+                    $('#alert').html("Không thể tải Public Key.").removeClass('alert').addClass('error');
+                }
+            });
+        });
+
+        // Xử lý nút "Tool Tạo Key"
+        $('#openToolButton').click(function () {
+            window.open('/src/main/java/toolDS/Main.java', '_blank');
+        });
+
+
+        // Xử lý tải file lên
+        $('#fileInput').change(function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#publicKeyInput').val(e.target.result);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Xử lý nút "Xác nhận"
+        $('#savePublicKeyButton').click(function () {
+            const publicKey = $('#publicKeyInput').val();
+            if (publicKey.trim() === '') {
+                $('#alert').html("Vui lòng nhập hoặc tải Public Key.").removeClass('alert').addClass('error');
+                return;
+            }
+            $.ajax({
+                url: '/SignOrder',
+                method: 'POST',
+                data: { action: 'savePublicKey', publicKey: publicKey },
+                success: function () {
+                    $('#alert').html("Lưu Public Key thành công!").removeClass('error').addClass('alert');
+                },
+                error: function () {
+                    $('#alert').html("Lỗi khi lưu Public Key.").removeClass('alert').addClass('error');
                 }
             });
         });
     });
-
-
 </script>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-<%--<jsp:include page="layout/footer.jsp"/>--%>
-<!-- popper -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- DataTables JS with Bootstrap -->
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 </body>
-
 </html>
-`
