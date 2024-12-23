@@ -140,7 +140,7 @@
                 if (action.equals("genkey")) {
 
             %>
-            <header>Đăng nhập trước để tạo khóa</header>
+            <header>Login và tạo khóa</header>
             <%} else if (action.isEmpty() || action.equals("") || action == null) {%>
             <header>Login</header>
             <%}%>

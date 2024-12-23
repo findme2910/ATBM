@@ -22,12 +22,9 @@
 </head>
 <body>
 <div class="container mt-lg-5">
-    <h2 class="title text-center mb-lg-5">Chào mừng</h2>
-    <div class="text-center">
-        <a class="btn btn-primary" href="login?action=genkey">Tạo khóa</a>
-    </div>
+    <h2 class="title text-center mb-lg-5">Bạn đã đăng ký tài khoản thành công!!</h2>
     <div class="text-center mt-lg-5 ">
-       <a class="btn btn-secondary" href="login">Đăng nhập</a>
+       <a class="btn btn-secondary" href="login?action=genkey">Đăng nhập</a>
     </div>
 
 
