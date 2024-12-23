@@ -101,7 +101,7 @@ public class ThanhToanCL extends HttpServlet {
                 Orders order = new Orders(user.getId(), (float) result,
                         0, address, phone,"Chưa Thanh Toán");
                 order.setLp(products);
-                this.orderService.insertOrderDetail(order);
+                int orderId = this.orderService.insertOrder(order);
                 System.out.println(order);
                 double total = c.getTotalPrice();
                 double re = 0.0;
@@ -113,7 +113,10 @@ public class ThanhToanCL extends HttpServlet {
                 System.out.println(re);
                 session.setAttribute("total", re);
                 session.removeAttribute("cart");
-                session.setAttribute("order", order);
+//Lấy id của đơn hàng vừa thêm vào db
+                order.setId(orderId);
+                String orderHashed = orderService.proccessOrderHash(order);
+                session.setAttribute("orderHashed", orderHashed);
                 response.sendRedirect("sign-order.jsp");
             } catch (Exception e) {
                 e.printStackTrace();
