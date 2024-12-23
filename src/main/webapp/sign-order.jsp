@@ -57,7 +57,7 @@
     <div class="d-flex align-items-center justify-content-center gap-3 mt-5">
         <!-- Mã Hash -->
         <p class="fs-5 fw-semibold bg-light text rounded px-3 py-2 shadow-sm">
-            <%= request.getAttribute("hash") %>
+            <%= (String) session.getAttribute("orderHashed") %>
         </p>
         <!-- Nút Copy -->
         <button style="margin-top: -13px;margin-left: 20px"
@@ -73,7 +73,7 @@
     <h2 class="text-center text-success mt-5">Chữ ký của bạn</h2>
     <div class="input-group mt-5 mb-5 w-50" style="margin-left: 250px">
         <div class="input-group-prepend">
-            <button id="runTool" class="btn btn-outline-danger" type="button">Tool</button>
+            <button id="runTool" class="btn btn-danger" type="button">Tool</button>
         </div>
         <input type="text" class="form-control" placeholder="Dùng tool để lấy chữ kí và nhập vào đây " aria-label=""
                aria-describedby="basic-addon1">
@@ -95,7 +95,16 @@
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand("Copy");
-            // textArea.remove();
+            textArea.remove();
+            // alert("Đã copy");
+            var originalText = $("#copyButton").html();
+            var originalClass = $("#copyButton").attr("class");
+            $("#copyButton").html("Đã copy mã hash");
+            $("#copyButton").removeClass(originalClass).addClass("btn btn-secondary");
+            setTimeout(function () {
+                $("#copyButton").html(originalText);
+                $("#copyButton").removeClass("btn-secondary").addClass(originalClass);
+            }, 800);
         });
 
         $("#runTool").click(function () {

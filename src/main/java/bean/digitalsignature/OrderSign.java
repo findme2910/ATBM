@@ -3,6 +3,7 @@ package bean.digitalsignature;
 import bean.OrderDetailTable;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Setter
 @Getter
+@ToString
 public class OrderSign implements Serializable {
     private int id;
     private int userId;
@@ -26,13 +28,4 @@ public class OrderSign implements Serializable {
     public OrderSign() {
     }
 
-    @Override
-    public String toString() {
-        return "OrderSign{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", createAt=" + createAt +
-                ", listDetails=" + listDetails +
-                '}';
-    }
 }
