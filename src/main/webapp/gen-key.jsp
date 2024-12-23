@@ -28,13 +28,13 @@
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 30px;
             color: #333;
             margin-bottom: 1rem;
         }
 
         p {
-            font-size: 16px;
+            font-size: 22px;
             color: #666;
             margin-bottom: 1.5rem;
         }
@@ -63,7 +63,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-
+            font-size:19px;
             transform-origin: center;
 
             padding: 0.5rem 1rem;
@@ -83,11 +83,11 @@
             transform: translate(-50%, -50%);
             width: 100%;
             height: 100%;
-            background-color: var(--black-700);
+
             border-radius: var(--border_radius);
             box-shadow: inset 0 0.5px hsl(0, 0%, 100%), inset 0 -1px 2px 0 hsl(0, 0%, 0%),
             0px 4px 10px -4px hsla(0 0% 0% / calc(1 - var(--active, 0))),
-            0 0 0 calc(var(--active, 0) * 0.375rem) hsl(260 97% 50% / 0.75);
+            0 0 0 calc(var(--active, 0) * 0.375rem) hsl(53.13deg 5.89% 2.97% / 75%);
 
             transition: all var(--transtion);
             z-index: 0;
@@ -102,12 +102,8 @@
 
             width: 100%;
             height: 100%;
-            background-color: hsla(260 97% 61% / 0.75);
-            background-image: radial-gradient(
-                    at 51% 89%,
-                    hsla(266, 45%, 74%, 1) 0px,
-                    transparent 50%
-            ),
+
+
             radial-gradient(at 100% 100%, hsla(266, 36%, 60%, 1) 0px, transparent 50%),
             radial-gradient(at 22% 91%, hsla(266, 36%, 60%, 1) 0px, transparent 50%);
             background-position: top;
@@ -223,8 +219,46 @@
                     hsla(0 0% 100% / var(--active, 0)) 120%
             );
             background-clip: text;
-            font-size: 1rem;
             color: transparent;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Ẩn modal mặc định */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Hiệu ứng làm mờ nền */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 30%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-button {
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -233,44 +267,130 @@
 <div class="container">
     <h1>Tạo Key Cho người dùng</h1>
     <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-        <button id="loadPublicKeyButton" class="button">Load Public Key</button>
+        <button id="autoGenKey" class="button">Auto GenKey</button>
         <button id="openToolButton" class="button">Tool Tạo Key</button>
     </div>
 
     <form id="publicKeyForm">
-        <div style="margin-bottom: 10px;">
+        <div style="margin-bottom: 10px; font-size: 19px;">
             <label for="publicKeyInput">Public Key:</label>
-            <textarea id="publicKeyInput" name="publicKey" placeholder="Paste your public key here" style="width: 100%; height: 100px;"></textarea>
+            <textarea id="publicKeyInput"  name="publicKey" placeholder="Nhập publicKey ở đây" style="width: 100%; height: 100px;font-size: 18px"></textarea>
         </div>
-        <div style="margin-bottom: 20px;">
+        <div style="margin-bottom: 20px; font-size: 19px">
             <label for="fileInput">Hoặc chọn file chứa Public Key:</label>
             <input type="file" id="fileInput" accept=".txt">
         </div>
-        <button type="button" id="savePublicKeyButton" class="button">Xác nhận</button>
+        <button type="button" id="savePublicKeyButton" class="button" style="margin:auto">Xác nhận</button>
     </form>
     <div id="alert" class="alert"></div>
+    <!-- Modal -->
+    <div id="genKeyModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h2>Chọn thư mục lưu khóa</h2>
+            <div style="margin-bottom: 20px;">
+                <button id="selectPublicKeyDir" class="button" style ="margin-left:25%;">Chọn thư mục Public Key</button>
+                <p id="publicKeyPathDisplay">Chưa chọn thư mục</p>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <button id="selectPrivateKeyDir" class="button" style ="margin-left:25%;">Chọn thư mục Private Key</button>
+                <p id="privateKeyPathDisplay">Chưa chọn thư mục</p>
+            </div>
+            <button id="confirmGenKey" class="button" style ="margin-left:39%;">Xác nhận</button>
+        </div>
+    </div>
 </div>
+
 
 <script>
     $(document).ready(function () {
-        // Xử lý nút "Load Public Key"
-        $('#loadPublicKeyButton').click(function () {
-            $.ajax({
-                url: '/SignOrder',
-                method: 'GET',
-                data: { action: 'loadPublicKey' },
-                success: function (response) {
-                    $('#publicKeyInput').val(response.publicKey);
-                },
-                error: function () {
-                    $('#alert').html("Không thể tải Public Key.").removeClass('alert').addClass('error');
-                }
-            });
+
+        let publicKeyDirHandle = null;
+        let privateKeyDirHandle = null;
+        // Hiển thị modal khi click "Auto GenKey"
+        $('#autoGenKey').click(function () {
+            $('#genKeyModal').fadeIn();
         });
 
+        // Đóng modal
+        $('#closeModal').click(function () {
+            $('#genKeyModal').fadeOut();
+        });
+
+        // Chọn thư mục lưu Public Key
+        $('#selectPublicKeyDir').click(async function () {
+            try {
+                publicKeyDirHandle = await window.showDirectoryPicker();
+                $('#publicKeyPathDisplay').text(`Thư mục Public Key đã chọn: ${publicKeyDirHandle.name}`);
+            } catch (err) {
+                console.error(err);
+                alert("Không thể chọn thư mục Public Key!");
+            }
+        });
+
+        // Chọn thư mục lưu Private Key
+        $('#selectPrivateKeyDir').click(async function () {
+            try {
+                privateKeyDirHandle = await window.showDirectoryPicker();
+                $('#privateKeyPathDisplay').text(`Thư mục Private Key đã chọn: ${privateKeyDirHandle.name}`);
+            } catch (err) {
+                console.error(err);
+                alert("Không thể chọn thư mục Private Key!");
+            }
+        });
+
+        // Xác nhận và thực hiện lưu file
+        $('#confirmGenKey').click(async function () {
+            if (!publicKeyDirHandle || !privateKeyDirHandle) {
+                alert("Vui lòng chọn cả thư mục lưu Public Key và Private Key!");
+                return;
+            }
+            try {
+                const response = await $.ajax({
+                    url: '/SignOrder',
+                    method: 'GET',
+                    data: {
+                        action: 'genkey',
+                        publicKeyPath: publicKeyDirHandle.name,
+                        privateKeyPath: privateKeyDirHandle.name,
+                    },
+                    dataType: 'json',
+                });
+                const publicKeyContent = response.publicKey;
+                const privateKeyContent = response.privateKey;
+
+                // Lưu Public Key
+                const publicKeyFile = await publicKeyDirHandle.getFileHandle('public_key.txt', { create: true });
+                const publicKeyWritable = await publicKeyFile.createWritable();
+                await publicKeyWritable.write(publicKeyContent);
+                await publicKeyWritable.close();
+
+                // Lưu Private Key
+                const privateKeyFile = await privateKeyDirHandle.getFileHandle('private_key.txt', { create: true });
+                const privateKeyWritable = await privateKeyFile.createWritable();
+                await privateKeyWritable.write(privateKeyContent);
+                await privateKeyWritable.close();
+                alert("Tạo và lưu khóa thành công!");
+                $('#genKeyModal').fadeOut();
+                window.location.href = '/HomePageController';
+            } catch (err) {
+                console.error("Lỗi khi tạo khóa:", err);
+                alert("Đã xảy ra lỗi khi tạo khóa.");
+            }
+        });
+
+
+
+
         // Xử lý nút "Tool Tạo Key"
-        $('#openToolButton').click(function () {
-            window.open('/src/main/java/toolDS/Main.java', '_blank');
+        $("#openToolButton").click(function () {
+            $.ajax({
+                url: 'Tool',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);
+                }
+            });
         });
 
 
@@ -298,7 +418,8 @@
                 method: 'POST',
                 data: { action: 'savePublicKey', publicKey: publicKey },
                 success: function () {
-                    $('#alert').html("Lưu Public Key thành công!").removeClass('error').addClass('alert');
+                    alert("Tạo khóa thành công!")
+                    window.location.href = '/HomePageController';
                 },
                 error: function () {
                     $('#alert').html("Lỗi khi lưu Public Key.").removeClass('alert').addClass('error');

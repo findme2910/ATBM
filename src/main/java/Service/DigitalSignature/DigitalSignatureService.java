@@ -11,12 +11,16 @@ import dao.digitalsignature.SignedOrderDAO;
 import exceptions.DigitalSignatureException;
 import utils.DigitalSignature;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import static utils.Hash.hash;
 
 
 public class DigitalSignatureService {
     private DigitalSignature digitalSignature;
-    private IDAO<Keys> keysDAO;
+    private KeyDAO keysDAO;
     private IDAO<SignedOrder> signedOrderDAO;
 
     public DigitalSignatureService() {
@@ -54,7 +58,6 @@ public class DigitalSignatureService {
 
     //Ký đơn hàng
     public void signOrder(OrderSign orderSign, String privateKey, User user) throws DigitalSignatureException {
-
         this.digitalSignature.loadPrivateKey(privateKey);//load private key
         System.out.println("load private key");
         System.out.println(digitalSignature.keyToBase64(digitalSignature.getPrivateKey()));
@@ -91,7 +94,6 @@ public class DigitalSignatureService {
     }
 
     public void saveKeyWithUser(User user, String privateKey, String publicKey) throws DigitalSignatureException {
-
         digitalSignature = new DigitalSignature();
         digitalSignature.loadPublicKey(publicKey);
         digitalSignature.loadPrivateKey(privateKey);
@@ -103,10 +105,23 @@ public class DigitalSignatureService {
     }
 
     public boolean isExitsKeys(User user) {
-        return keysDAO.get(user.getId()) != null;
+        return keysDAO.hasActivePublicKey(user.getId());
     }
 //    public static void main(String[] args) {
 //        DigitalSignatureService digitalSignatureService = new DigitalSignatureService();
 //    }
+    public void saveToFile(String filePath, String content) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(content);
+            writer.flush();
+        } catch (IOException e) {
+            // Log lỗi và ném ngoại lệ để servlet xử lý
+            System.err.println("Lỗi khi lưu file: " + e.getMessage());
+            throw e; // Đảm bảo ngoại lệ được truyền lên cấp cao hơn
+        }
+    }
 
 }
+
+
+

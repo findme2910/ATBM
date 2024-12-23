@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Key;
+import java.sql.Timestamp;
 import java.util.List;
 
 @WebServlet(name = "DigitalSignatureController", value = "/SignOrder")
@@ -43,7 +45,14 @@ public class DigitalSignatureController extends BaseServlet {
         out = response.getWriter();
         try {
             String action = request.getParameter("action");
-            if (action.equals("genkey")) {
+            if ("genkey".equals(action)) {
+                String publicKeyPath = request.getParameter("publicKeyPath");
+                String privateKeyPath = request.getParameter("privateKeyPath");
+                System.out.println(publicKeyPath);
+                System.out.println(privateKeyPath);
+                if (publicKeyPath == null || privateKeyPath == null) {
+                    throw new DigitalSignatureException("Đường dẫn Public Key hoặc Private Key không hợp lệ.");
+                }
                 genKey();
             }
         } catch (DigitalSignatureException e) {
@@ -54,46 +63,49 @@ public class DigitalSignatureController extends BaseServlet {
         }
     }
 
-    public void genKey() throws DigitalSignatureException, IOException {
-        System.out.println("Gen Key");
-        digitalSignatureService = new DigitalSignatureService();
-        HttpSession session = request.getSession(true);
-        User user = (User) session.getAttribute("user");
-        if (user == null) {//Kiểm tra nếu chưa đăng nhập thì gửi thông báo
-            out.println("Chưa đăng nhập!");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.flush();
-            out.close();
-        } else if (digitalSignatureService.isExitsKeys(user)) {
+    public void genKey() throws IOException {
+        try {
+            System.out.println("Gen Key");
+            digitalSignatureService = new DigitalSignatureService();
+            HttpSession session = request.getSession(true);
+            User user = (User) session.getAttribute("user");
 
-            out.println("Người dùng đã có key!");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.flush();
-            out.close();
-        } else {
-            //Tạo key
+            if (user == null) {
+                throw new DigitalSignatureException("Chưa đăng nhập!");
+            }
+
+            if (digitalSignatureService.isExitsKeys(user)) {
+                throw new DigitalSignatureException("Người dùng đã có key!");
+            }
+
+            // Tạo cặp khóa
             digitalSignatureService.genKey();
-            //load cặp khóa
             String privateKey = digitalSignatureService.getPrivateKey();
             String publicKey = digitalSignatureService.getPublicKey();
+            System.out.println(privateKey);
+            System.out.println(publicKey);
+            // Lưu Public Key vào database
+            digitalSignatureService.saveKeyWithUser(user, privateKey, publicKey);
 
-            //Gửi dữ liệu dạng json
+
+            // Trả về JSON thành công
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
             out.println("{");
             out.println("\"publicKey\": \"" + publicKey + "\",");
             out.println("\"privateKey\": \"" + privateKey + "\"");
             out.println("}");
             out.flush();
-
-            //Lưu public key và dữ liệu để định dang ngừoi dùng
-            digitalSignatureService.saveKeyWithUser(user, privateKey, publicKey);
-
-
+        } catch (IOException | DigitalSignatureException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write(e.getMessage());
         }
-
-
     }
+
+
+
 
 
 
@@ -105,8 +117,10 @@ public class DigitalSignatureController extends BaseServlet {
             if (action.equals("verifyUser")) {
                 verifyUser();
             } else if (action.equals("sign")) {
-
                 processSignOrder();
+            }
+            else if (action.equals("savePublicKey")) {
+                savePublicKey(request, response);
             }
         } catch (DigitalSignatureException e) {
             e.printStackTrace();
@@ -116,6 +130,28 @@ public class DigitalSignatureController extends BaseServlet {
         }
     }
 
+    private void savePublicKey(HttpServletRequest request, HttpServletResponse response) throws IOException, DigitalSignatureException {
+        HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("user");
+        digitalSignatureService = new DigitalSignatureService();
+        if (user == null) {
+            throw new DigitalSignatureException("Chưa đăng nhập!");
+        }
+        if (digitalSignatureService.isExitsKeys(user)) {
+            throw new DigitalSignatureException("Người dùng đã có key!");
+        }
+        String publicKey = request.getParameter("publicKey");
+        if (publicKey == null || publicKey.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Public Key không hợp lệ.");
+            return;
+        }
+
+        Keys key = new Keys(user.getId(), publicKey);
+        keyDAO.insert(key);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("Lưu Public Key thành công.");
+    }
     private void verifyUser() throws DigitalSignatureException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
@@ -136,8 +172,6 @@ public class DigitalSignatureController extends BaseServlet {
         System.out.println("Private key :" + privateKey);
         //Kiểm tra xác thực ngừoi dùng
         digitalSignatureService.verifyUser(user, privateKey);
-
-
         //Tạo dữ liệu
         OrderTable orderTable = dao.getOrderById(orderId);
         List<OrderDetailTable> listOrderDetail = dao.getOrderDetailsByOrderId(orderTable.getId());
@@ -164,8 +198,6 @@ public class DigitalSignatureController extends BaseServlet {
         if (currentStatus == 0 || currentStatus == 1 ||
                 currentStatus == 2 || currentStatus == 3 ||
                 currentStatus == 4 || currentStatus == 5) {
-
-
             throw new DigitalSignatureException("Không thể ký");
         }
     }
