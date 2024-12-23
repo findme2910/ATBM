@@ -6,6 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="controller.EmailSender" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +84,12 @@
             lastSeenMessage = "Last seen " + minutesAgo + " minutes ago";
         }
     }
+
+
+
+
 %>
+
 <%
     // xác thực userid có publickey không
     boolean hasPublicKey = true;
@@ -93,21 +99,37 @@
         try {
             Jdbi jdbi = JDBIConnector.get();
             String publicKey = jdbi.withHandle(handle ->
-                    handle.createQuery("SELECT publicKey FROM keys WHERE userId = :userId")
+                    handle.createQuery("SELECT publicKey FROM `keys` WHERE userId = :userId")
                             .bind("userId", user.getId())
                             .mapTo(String.class)
                             .findOne()
                             .orElse(null)
             );
-            hasPublicKey = (publicKey != null && !publicKey.isEmpty());
+
+            hasPublicKey = (publicKey != null && !publicKey.trim().isEmpty());
             InfopublicKey = publicKey;
+            System.out.println("User ID: " + user.getId());
+            System.out.println("Public Key Retrieved: " + publicKey);
+            System.out.println("Has Public Key: " + hasPublicKey);
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+%>
+<%
 
+    if (user != null) {
+        String userEmail = user.getEmail();
 
+        // Gửi email thông báo cho người dùng
+        String subject = "Thông báo report";
+        String body = "Hộp thư đã được gửi đến email " + userEmail;
+
+        // Gửi email thông qua EmailSender
+        EmailSender.sendEmail(userEmail, subject, body);
+    }
 %>
 
 
@@ -305,8 +327,8 @@
         </div>
         <span class="close-btn" id="closeLightbox">&times;</span>
         <p>Last Seen: <%= lastSeenMessage %></p>
-        <p>Thông tin key của người dùng</p>
-        <p>Public Key: <%= InfopublicKey  %></p>
+        <label for="publicKey">Public Key:</label>
+        <input type="text" id="publicKey" value="<%= InfopublicKey %>" readonly class="form-control">
         <p>* Lưu ý : nếu key hiện tại của bạn không trùng với key hệ thống đã lưu, vui lòng nhấn report để cấp lại key </p>
         <div class="col d-flex justify-content-center">
             <button id="report-keyButton" class="btn btn-secondary">Report</button>
@@ -349,14 +371,33 @@
     });
 
 
+
     // document.addEventListener("DOMContentLoaded", function () {
-    //     const reportButton = document.getElementById("report-keyButton");
+    //     const deleteKeyButton = document.getElementById("report-keyButton");
     //
-    //     reportButton.addEventListener("click", function () {
-    //         const userConfirmed = confirm("Bạn có chắc chắn muốn vô hiệu hóa cặp key hiện tại không?");
-    //
+    //     deleteKeyButton.addEventListener("click", function () {
+    //         const userConfirmed = confirm("Bạn có chắc chắn muốn report");
     //         if (userConfirmed) {
-    //             alert("Đã vô hiệu hóa cặp key hiện tại, vui lòng tạo key mới nếu muốn mua hàng!");
+    //             fetch('/delete-double-key', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 body: JSON.stringify({ userId: USER_ID })
+    //             })
+    //                 .then(response => response.json())
+    //                 .then(data => {
+    //                     if (data.success) {
+    //                         alert("Cặp key đã được xóa thành công!");
+    //                         location.reload();
+    //                     } else {
+    //                         alert("Xóa cặp key thất bại. Vui lòng thử lại!");
+    //                     }
+    //                 })
+    //                 .catch(error => {
+    //                     console.error("Error:", error);
+    //                     alert("Đã xảy ra lỗi. Vui lòng thử lại!");
+    //                 });
     //         }
     //     });
     // });
@@ -365,33 +406,37 @@
         const deleteKeyButton = document.getElementById("report-keyButton");
 
         deleteKeyButton.addEventListener("click", function () {
-            const userConfirmed = confirm("Bạn có chắc chắn muốn xóa cặp key này không?");
+            const userConfirmed = confirm("Bạn có chắc chắn muốn report?");
+
             if (userConfirmed) {
-                fetch('/delete-double-key', {
+                const userEmail = "<%= user.getEmail() %>"; // Lấy email từ JSP
+                alert("Hộp thư đã được gửi đến email " + userEmail);
+
+                // Gọi server để gửi email
+                fetch('/send-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ userId: USER_ID })
+                    body: JSON.stringify({
+                        email: userEmail,
+                        message: 'Hộp thư đã được gửi đến email của bạn. Cảm ơn bạn đã xác nhận report.'
+                    })
                 })
                     .then(response => response.json())
                     .then(data => {
-                        if (data.success) {
-                            alert("Cặp key đã được xóa thành công!");
-                            location.reload();
-                        } else {
-                            alert("Xóa cặp key thất bại. Vui lòng thử lại!");
-                        }
+                        console.log("Email sent successfully:", data);
                     })
                     .catch(error => {
-                        console.error("Error:", error);
-                        alert("Đã xảy ra lỗi. Vui lòng thử lại!");
+                        console.error("Error sending email:", error);
                     });
+            } else {
+                alert("Bạn đã hủy báo cáo.");
             }
         });
     });
 
-    const USER_ID = <%= user != null ? user.getId() : "null" %>;
+
 
 </script>
 </body>

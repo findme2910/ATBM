@@ -18,7 +18,7 @@ public class RSADSView extends JFrame {
     public RSADSView() {
         // Cấu hình JFrame
         setTitle("RSA Digital Signature Tool");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null); // Hiển thị ở giữa màn hình
         setLayout(new BorderLayout());
@@ -76,8 +76,8 @@ public class RSADSView extends JFrame {
         signFileButton = createStyledButton("Sign File");
         verifyFileButton = createStyledButton("Verify File");
 
-        operationPanel.add(new JLabel("Chọn Thuật toán băm:"));
-        operationPanel.add(hashAlgorithmComboBox);
+//        operationPanel.add(new JLabel("Chọn Thuật toán băm:"));
+//        operationPanel.add(hashAlgorithmComboBox);
 
         operationPanel.add(signTextButton);
         operationPanel.add(verifyTextButton);

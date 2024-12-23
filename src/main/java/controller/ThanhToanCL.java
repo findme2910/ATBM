@@ -1,18 +1,18 @@
 package controller;
 
 import Service.IOrdersService;
-import Service.OrderDetailService;
 import Service.OrdersService;
 import bean.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -101,16 +101,23 @@ public class ThanhToanCL extends HttpServlet {
                 Orders order = new Orders(user.getId(), (float) result,
                         0, address, phone,"Chưa Thanh Toán");
                 order.setLp(products);
-                this.orderService.insertOrderDetail(order);
+                int orderId = this.orderService.insertOrder(order);
+                System.out.println(order);
                 double total = c.getTotalPrice();
                 double re = 0.0;
                 Discount discount = (Discount) session.getAttribute("discount");
-                if(discount != null) re += total - (discount.getSalePercent()*total);
-                else re += total;
+                if (discount != null)
+                    re += total - (discount.getSalePercent() * total);
+                else
+                    re += total;
                 System.out.println(re);
                 session.setAttribute("total", re);
                 session.removeAttribute("cart");
-                response.sendRedirect("HomePageController");
+//Lấy id của đơn hàng vừa thêm vào db
+                order.setId(orderId);
+                String orderHashed = orderService.proccessOrderHash(order);
+                session.setAttribute("orderHashed", orderHashed);
+                response.sendRedirect("sign-order.jsp");
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -2,10 +2,15 @@ package Service;
 
 import bean.CartItem;
 import bean.OrderDetail;
+import bean.OrderDetailTable;
 import bean.Orders;
+import bean.digitalsignature.OrderSign;
 import dao.IOrdersDAO;
 import dao.OrdersDAO;
+import exceptions.DigitalSignatureException;
+import utils.Hash;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class OrdersService implements IOrdersService {
@@ -36,4 +41,13 @@ public class OrdersService implements IOrdersService {
 		}
 		return orderId;
 	}
+
+	@Override
+	public String proccessOrderHash(Orders order) throws DigitalSignatureException {
+		List<OrderDetailTable> listDetails = ordersDAO.getOrderDetailsByOrderId(order.getId());
+		OrderSign orderSign = new OrderSign(order.getId(), order.getIdUser(), new Timestamp(System.currentTimeMillis()), listDetails);
+		System.out.println(orderSign);
+		return Hash.hash(orderSign.toString());
+	}
+//	public String hashOrder
 }
