@@ -18,7 +18,7 @@ public class RSADSView extends JFrame {
     public RSADSView() {
         // Cấu hình JFrame
         setTitle("RSA Digital Signature Tool");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null); // Hiển thị ở giữa màn hình
         setLayout(new BorderLayout());
@@ -64,10 +64,10 @@ public class RSADSView extends JFrame {
         keyPanel.add(privateKeyPanel);
 
         // Right Panel: Hashing and Signing
-        JPanel operationPanel = new JPanel();
-        operationPanel.setLayout(new GridLayout(8, 1, 10, 10));
-        operationPanel.setBorder(BorderFactory.createTitledBorder("Hàm băm và chữ kí điện tử"));
-        operationPanel.setBackground(new Color(245, 245, 245));
+//        JPanel operationPanel = new JPanel();
+//        operationPanel.setLayout(new GridLayout(8, 1, 10, 10));
+//        operationPanel.setBorder(BorderFactory.createTitledBorder("Hàm băm và chữ kí điện tử"));
+//        operationPanel.setBackground(new Color(245, 245, 245));
 
         hashAlgorithmComboBox = new JComboBox<>(new String[]{"SHA-256", "SHA-1", "MD5"});
 
@@ -76,16 +76,16 @@ public class RSADSView extends JFrame {
         signFileButton = createStyledButton("Sign File");
         verifyFileButton = createStyledButton("Verify File");
 
-        operationPanel.add(new JLabel("Chọn Thuật toán băm:"));
-        operationPanel.add(hashAlgorithmComboBox);
-
-        operationPanel.add(signTextButton);
-        operationPanel.add(verifyTextButton);
-        operationPanel.add(signFileButton);
-        operationPanel.add(verifyFileButton);
+//        operationPanel.add(new JLabel("Chọn Thuật toán băm:"));
+//        operationPanel.add(hashAlgorithmComboBox);
+//
+//        operationPanel.add(signTextButton);
+//        operationPanel.add(verifyTextButton);
+//        operationPanel.add(signFileButton);
+//        operationPanel.add(verifyFileButton);
 
         mainPanel.add(keyPanel);
-        mainPanel.add(operationPanel);
+//        mainPanel.add(operationPanel);
 
         // Input output
         JPanel ioPanel = new JPanel(new GridLayout(2, 1, 10, 10));
