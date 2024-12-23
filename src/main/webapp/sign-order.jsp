@@ -1,10 +1,12 @@
-<%--
+`<%--
   Created by IntelliJ IDEA.
-  User: ngoctaiphan
-  Date: 19/12/2024
-  Time: 21:30
+  User: 84828
+  Date: 4/21/2024
+  Time: 1:01 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="bean.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
-    <title>Vườn phố</title>
+    <title>Ký đơn hàng</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <%--    Database css boostrap--%>
@@ -41,177 +43,82 @@
     <link rel="stylesheet" href="assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="assets/css/Log_Regis.css">
-    <style>
-        .btn-custom {
-            background-color: #7FAD39;
-            color: white;
-        }
 
-        .btn-custom:hover {
-            background-color: white;
-            color: #7FAD39;
-            border: 1px solid #7FAD39;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            padding: 0.5rem 0.75rem;
-            margin-left: -1px;
-            border: 1px solid #dee2e6;
-            border-radius: 0.25rem;
-            color: #007bff;
-            background-color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            color: #0056b3;
-            background-color: #e9ecef;
-            border-color: #dee2e6;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            border: 1px solid #dee2e6;
-            border-radius: 0.25rem;
-            padding: 0.375rem 0.75rem;
-        }
-
-        input[type="search"] {
-            background-color: #fff;
-        }
-
-        .modal .modal-footer {
-            background-color: #fff;
-
-        }
-
-        table.table td:last-child {
-            font-size: 14px;
-        }
-
-        a {
-            text-decoration: none !important;
-        }
-
-        .navbar {
-            background-color: #fff;
-            border-bottom: 1px solid #ccc;
-            width: 100%;
-            margin: auto;
-            overflow: hidden;
-        }
-
-        .navbar ul {
-            list-style: none;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-            width: 100%;
-        }
-
-        .navbar ul li {
-            flex: 1;
-            border-right: 1px solid white;
-        }
-
-        .navbar ul li a {
-            text-decoration: none;
-            color: #000;
-            padding: 10px;
-            display: block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .navbar a.active {
-            background-color: #7fad39;
-            color: white;
-        }
-
-        .navbar li:hover {
-            background-color: #7fad39;
-        }
-
-        .btn-view {
-            color: #ff6347;
-            background-color: #ffe4e1;
-        }
-
-        .btn-view:hover {
-            background-color: #ffcccb;
-            color: #dc3545;
-        }
-
-        body {
-            padding-right: 0 !important;
-        }
-
-        .btn-review {
-            background-color: #ff9800;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .btn-review:hover {
-            background-color: #cc7900;
-        }
-
-        .alertWidth {
-            width: 200px !important;
-        }
-
-        .aleHeight {
-            height: 100px !important;
-        }
-        .main-div{
-            background-color: #f5f5f5
-        ;
-        }
-    </style>
 </head>
 <body>
-<jsp:include page="layout/header.jsp"/>
-<div class="container mb-lg-5 main-div" style="width:max-content;margin-top:100px">
-    <div class="">
-        <h5 class="mb-2" id="signOrderModalLabel"> Kí đơn hàng</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+<%--<jsp:include page="layout/header.jsp"/>--%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<div style="margin-top: 10%" class="container w-50 p-4 border rounded shadow">
+    <!-- Tiêu đề -->
+    <h3 class="text-center text mb-4">Đây là mã Hash đơn hàng của bạn:</h3>
+    <div class="d-flex align-items-center justify-content-center gap-3 mt-5">
+        <!-- Mã Hash -->
+        <p class="fs-5 fw-semibold bg-light text rounded px-3 py-2 shadow-sm">
+            <%= request.getAttribute("hash") %>
+        </p>
+        <!-- Nút Copy -->
+        <button style="margin-top: -13px;margin-left: 20px"
+                class="  btn btn-outline-secondary d-flex align-items-center gap-2" id="copyButton">
+            <svg viewBox="0 0 512 512" class="svgIcon" height="1em">
+                <path d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"></path>
+            </svg>
+            <span>COPY</span>
+        </button>
     </div>
-    <div class="">
-        <table class="table table-bordered table-hover">
-            <tbody>
-            <tr>
-                <td>
-                    <div class="mb-3">
-                        <label for="privateKeyTextArea" class="form-label">Nhập private key của
-                            bạn</label>
-                        <textarea class="form-control" id="privateKeyTextArea" rows="3"></textarea>
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group mt-5">Hoặc</div>
-                </td>
-                <td>
-                    <div class="input-group mt-5">
-                        <input type="file" class="custom-file-input" onchange="handleFile(event)" id="privateKeyFile">
-                        <label class="custom-file-label" for="privateKeyFile">Chọn file</label>
-                        <div class="input-group-append" id="iconContainer"></div>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+
+    <!-- Chữ ký -->
+    <h2 class="text-center text-success mt-5">Chữ ký của bạn</h2>
+    <div class="input-group mt-5 mb-5 w-50" style="margin-left: 250px">
+        <div class="input-group-prepend">
+            <button id="runTool" class="btn btn-outline-danger" type="button">Tool</button>
+        </div>
+        <input type="text" class="form-control" placeholder="Dùng tool để lấy chữ kí và nhập vào đây " aria-label=""
+               aria-describedby="basic-addon1">
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-custom" id="cofirmSignOrder">Xác thực</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+
+    <!-- Lỗi và Nút Xác Nhận -->
+    <div class="text-center mt-4">
+        <span id="errorSign" class="text-danger d-block mb-2"></span>
+        <button class="btn btn-success px-4">Xác nhận</button>
     </div>
-</div >
-<jsp:include page="layout/footer.jsp"/>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#copyButton").click(function () {
+            var copyText = document.getElementById("copyButton");
+            var textArea = document.createElement("textarea");
+            textArea.value = copyText.previousElementSibling.innerText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            // textArea.remove();
+        });
+
+        $("#runTool").click(function () {
+            $.ajax({
+                url: 'Tool',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+<%--<jsp:include page="layout/footer.jsp"/>--%>
+<!-- popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- DataTables JS with Bootstrap -->
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 </body>
+
 </html>
+`
