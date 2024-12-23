@@ -351,7 +351,7 @@
                 const orderId = $(this).data('id');
                 const orderStatus = $(this).closest('tr').find('td:nth-child(8)').text().trim();
 
-                const invalidStatuses = ["Đã Giao", "Đã hủy", "Chờ Xét Duyệt", "Đang Đóng Gói", "Đang Vận Chuyển"];
+                const invalidStatuses = ["Đã Giao", "Đã Hủy", "Chờ Xét Duyệt", "Đang Đóng Gói", "Đang Vận Chuyển"];
                 console.log("Order Status:", orderStatus);
                 if (invalidStatuses.includes(orderStatus)) {
                     $('#btnSign').hide();
