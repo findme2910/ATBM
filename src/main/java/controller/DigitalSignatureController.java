@@ -192,7 +192,6 @@ public class DigitalSignatureController extends BaseServlet {
     }
 
     private void checkOrderStatus(int orderId) throws DigitalSignatureException {
-
         OrderTable order = dao.getOrderById(orderId);
         int currentStatus = order.getOrder_status();
         if (currentStatus == 0 || currentStatus == 1 ||
