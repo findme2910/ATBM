@@ -1,6 +1,8 @@
 package controller;
 
 import Service.DigitalSignature.DigitalSignatureService;
+import Service.IOrdersService;
+import Service.OrdersService;
 import bean.User;
 import bean.digitalsignature.Keys;
 import dao.IOrdersDAO;
@@ -123,6 +125,8 @@ public class DigitalSignatureController extends BaseServlet {
             }
             else if (action.equals("savePublicKey")) {
                 savePublicKey(request, response);
+            } else if (action.equals("hash")) {
+                proccessHashOrder();
             }
         } catch (DigitalSignatureException e) {
             e.printStackTrace();
@@ -133,6 +137,19 @@ public class DigitalSignatureController extends BaseServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void proccessHashOrder() throws DigitalSignatureException {
+        HttpSession session = request.getSession(true);
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+        session.setAttribute("orderId", orderId);
+        User user = (User) session.getAttribute("user");
+        IOrdersService ordersService = new OrdersService();
+        String hashOrder = ordersService.proccessOrderHash(orderId, user);
+        System.out.println(hashOrder);
+        session.setAttribute("orderHashed", hashOrder);
+
+
     }
 
     private void savePublicKey(HttpServletRequest request, HttpServletResponse response) throws IOException, DigitalSignatureException, NoSuchAlgorithmException {
@@ -179,7 +196,9 @@ public class DigitalSignatureController extends BaseServlet {
             //insert order
             digitalSignatureService.insertSignOrder(orderId, signedOrder, user.getId());
 //Về trang chủ
-            response.sendRedirect("HomePageController");
+//            response.sendRedirect("HomePageController");
+            session.removeAttribute("orderId");
+            session.removeAttribute("orderHashed");
         } else {
             throw new DigitalSignatureException("Chữ kí không hợp lệ. Hãy kí lại!");
         }
