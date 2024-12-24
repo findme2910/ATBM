@@ -55,9 +55,9 @@ public class OrderController extends HttpServlet {
             int signatureStatus = signedOrderDAO.getSignatureStatus(order.getId());
             order.setSignatureStatus(signatureStatus);
 
-            // Kiểm tra chữ ký và thiết lập trạng thái
-            boolean isSignatureValid = checkOrderSignature(order.getId());
-            order.setSignatureStatus(isSignatureValid ? 1 : 0);
+//            // Kiểm tra chữ ký và thiết lập trạng thái
+//            boolean isSignatureValid = checkOrderSignature(order.getId());
+//            order.setSignatureStatus(isSignatureValid ? 1 : 0);
         }
 
         req.setAttribute("listOrder", listOrder);
@@ -137,25 +137,25 @@ public class OrderController extends HttpServlet {
         }
     }
 
-    private boolean checkOrderSignature(int orderId) {
-        try {
-            OrderTable order = orderDao.getOrderById(orderId);
-            if (order == null) return false;
-
-            String orderHash = hash(order.toString());
-
-            String signedOrder = signedOrderDAO.get(orderId).getSignOrder();
-            String publicKey = signedOrderDAO.get(orderId).getPublicKey();
-
-            DigitalSignature digitalSignature = new DigitalSignature();
-            digitalSignature.loadPublicKey(publicKey);
-
-            return digitalSignature.verifySignature(orderHash, signedOrder);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+//    private boolean checkOrderSignature(int orderId) {
+//        try {
+//            OrderTable order = orderDao.getOrderById(orderId);
+//            if (order == null) return false;
+//
+//            String orderHash = hash(order.toString());
+//
+//            String signedOrder = signedOrderDAO.get(orderId).getSignOrder();
+//            String publicKey = signedOrderDAO.get(orderId).getPublicKey();
+//
+//            DigitalSignature digitalSignature = new DigitalSignature();
+//            digitalSignature.loadPublicKey(publicKey);
+//
+//            return digitalSignature.verifySignature(orderHash, signedOrder);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
 
 }
