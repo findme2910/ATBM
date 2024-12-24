@@ -156,21 +156,13 @@
                     String btnClass = "btn-signature-status";
 
                     switch (signatureStatus) {
-                        case -1:
-                            iconClass = "fas fa-exclamation-circle text-danger";
-                            tooltipText = "Đã bị thay đổi";
-                            break;
                         case 0:
                             iconClass = "fas fa-question-circle text-warning";
-                            tooltipText = "Chưa Verify";
+                            tooltipText = "Đã bị thay đổi";
                             break;
                         case 1:
                             iconClass = "fas fa-check-circle text-success";
-                            tooltipText = "Đã Verify";
-                            break;
-                        case 2:
-                            iconClass = "fas fa-times-circle text-secondary";
-                            tooltipText = "Chưa được ký";
+                            tooltipText = "Chưa thay đổi";
                             break;
                         default:
                             iconClass = "fas fa-info-circle text-dark";

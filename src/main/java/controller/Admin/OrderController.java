@@ -9,6 +9,7 @@ import dao.IOrdersDAO;
 import dao.LogDao;
 import dao.OrdersDAO;
 import dao.digitalsignature.SignedOrderDAO;
+import utils.DigitalSignature;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
+import static utils.Hash.hash;
 
 @WebServlet(name = "OrderManagement", value = "/orderManagement")
 public class OrderController extends HttpServlet {
@@ -51,6 +54,10 @@ public class OrderController extends HttpServlet {
             order.setListDetails(listOrderDetail);
             int signatureStatus = signedOrderDAO.getSignatureStatus(order.getId());
             order.setSignatureStatus(signatureStatus);
+
+            // Kiểm tra chữ ký và thiết lập trạng thái
+            boolean isSignatureValid = checkOrderSignature(order.getId());
+            order.setSignatureStatus(isSignatureValid ? 1 : 0);
         }
 
         req.setAttribute("listOrder", listOrder);
@@ -129,5 +136,27 @@ public class OrderController extends HttpServlet {
             resp.getWriter().write("Success");
         }
     }
+
+    private boolean checkOrderSignature(int orderId) {
+        try {
+            OrderTable order = orderDao.getOrderById(orderId);
+            if (order == null) return false;
+
+            String orderHash = hash(order.toString());
+
+            String signedOrder = signedOrderDAO.get(orderId).getSignOrder();
+            String publicKey = signedOrderDAO.get(orderId).getPublicKey();
+
+            DigitalSignature digitalSignature = new DigitalSignature();
+            digitalSignature.loadPublicKey(publicKey);
+
+            return digitalSignature.verifySignature(orderHash, signedOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+
+
+}
 
