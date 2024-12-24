@@ -125,7 +125,7 @@ public class DigitalSignatureService {
         }
     }
 
-    public boolean verifyUser(User user, String signedOrder, String orderHashed) throws Exception {
+    public boolean  verifyUser(User user, String signedOrder, String orderHashed) throws Exception {
         String publicKeyInDb = keysDAO.get(user.getId()).getPublicKey();
         System.out.println("publicKey: " + publicKeyInDb);
         DSModel dsModel = new DSModel();

@@ -12,6 +12,7 @@ import dao.IOrdersDAO;
 import dao.LogDao;
 import dao.OrdersDAO;
 import dao.digitalsignature.SignedOrderDAO;
+import utils.DSModel;
 import utils.DigitalSignature;
 
 import javax.servlet.ServletException;
@@ -144,6 +145,7 @@ public class OrderController extends HttpServlet {
             if (order == null) return false;
             //hash lại đơn hàng
             OrdersService ordersService = new OrdersService();
+            System.out.println(order.toString());
             String orderHash = ordersService.proccessOrderHash(order);
             System.out.println(orderHash);
             //lấy ra id của keys tương ứng với đơn hàng
@@ -161,9 +163,10 @@ public class OrderController extends HttpServlet {
             System.out.println(publicKey);
 
             // kiểm tra chữ ký
-            DigitalSignature digitalSignature = new DigitalSignature();
-            digitalSignature.loadPublicKey(publicKey); // Load publicKey từ bảng 'keys'
-            boolean isValid = digitalSignature.verifySignature(orderHash, signedOrderData);
+            DSModel dsModel = new DSModel();
+            dsModel.setPublicKey(publicKey);
+            System.out.println(dsModel.verifyText(orderHash, signedOrderData));
+            boolean isValid = dsModel.verifyText(orderHash, signedOrderData);
             // Cập nhật trạng thái trong bảng sign-order
             int signatureStatus = isValid ? 1 : 0;
             signedOrderDAO.updateSignatureStatus(orderId, signatureStatus);

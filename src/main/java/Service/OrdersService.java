@@ -1,16 +1,12 @@
 package Service;
 
-import bean.CartItem;
-import bean.OrderDetail;
-import bean.OrderDetailTable;
-import bean.Orders;
+import bean.*;
 import bean.digitalsignature.OrderSign;
 import dao.IOrdersDAO;
 import dao.OrdersDAO;
 import exceptions.DigitalSignatureException;
 import utils.Hash;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class OrdersService implements IOrdersService {
@@ -44,8 +40,18 @@ public class OrdersService implements IOrdersService {
 
 	@Override
 	public String proccessOrderHash(Orders order) throws DigitalSignatureException {
+		OrderTable o = ordersDAO.getOrderById(order.getId());
 		List<OrderDetailTable> listDetails = ordersDAO.getOrderDetailsByOrderId(order.getId());
-		OrderSign orderSign = new OrderSign(order.getId(), order.getIdUser(), order.getCreateAt(), listDetails);
+		OrderSign orderSign = new OrderSign(o.getId(), order.getIdUser(), o.getCreateAt(), listDetails);
+		System.out.println(orderSign);
+		return Hash.hash(orderSign.toString());
+	}
+
+	@Override
+	public String proccessOrderHash(int orderId, User user) throws DigitalSignatureException {
+		OrderTable o = ordersDAO.getOrderById(orderId);
+		List<OrderDetailTable> listDetails = ordersDAO.getOrderDetailsByOrderId(orderId);
+		OrderSign orderSign = new OrderSign(o.getId(), user.getId(), o.getCreateAt(), listDetails);
 		System.out.println(orderSign);
 		return Hash.hash(orderSign.toString());
 	}
