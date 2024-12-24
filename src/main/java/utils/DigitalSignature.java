@@ -3,7 +3,6 @@ package utils;
 import exceptions.DigitalSignatureException;
 import lombok.Getter;
 
-import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -15,11 +14,13 @@ import java.util.Base64;
 public class DigitalSignature {
     private static final String ALGO = "RSA";
     private static final String SIGNATURE_ALGO = "SHA256withRSA";
-    private static final int KEY_SIZE = 2048;
+    private static final int KEY_SIZE = 1024;
     private PublicKey publicKey;
     private PrivateKey privateKey;
+    MessageDigest messageDigest;
 
-    public DigitalSignature() {
+    public DigitalSignature() throws NoSuchAlgorithmException {
+        this.messageDigest = MessageDigest.getInstance("SHA-256");
     }
     // Tao khoa neu chua co khoa
     public void generateKeyPair() throws DigitalSignatureException {
@@ -35,55 +36,55 @@ public class DigitalSignature {
         this.publicKey = keyPair.getPublic();
     }
 
-    // Lưu khóa riêng dưới dạng Base64 vào file
-    public void savePrivateKeyToFile(String privateKeyFile) throws Exception {
-        FileOutputStream fileOut = new FileOutputStream(privateKeyFile);
-        fileOut.write(Base64.getEncoder().encodeToString(this.privateKey.getEncoded()).getBytes(StandardCharsets.UTF_8));
-        fileOut.close();
-    }
-
-    // Lưu khóa công khai dưới dạng Base64 vào file
-    public void savePublicKeyToFile(String publicKeyFile) throws Exception {
-        FileOutputStream fileOut = new FileOutputStream(publicKeyFile);
-        fileOut.write(Base64.getEncoder().encodeToString(this.publicKey.getEncoded()).getBytes(StandardCharsets.UTF_8));
-        fileOut.close();
-    }
-
-    // Đọc khóa riêng từ file và giải mã từ Base64
-    public void loadPrivateKeyFromFile(String privateKeyFile) throws Exception {
-        File file = new File(privateKeyFile);
-        if (!file.exists()) {
-            throw new Exception("File private key không tồn tại");
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String privateKeyBase64 = reader.readLine();
-            byte[] decodedKey = Base64.getDecoder().decode(privateKeyBase64);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            this.privateKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(decodedKey));
-        }
-    }
-
-    // Đọc khóa công khai từ file và giải mã từ Base64
-    public void loadPublicKeyFromFile(String publicKeyFile) throws DigitalSignatureException {
-        File file = new File(publicKeyFile);
-        if (!file.exists()) {
-            throw new DigitalSignatureException("File public key không tồn tại");
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String publicKeyBase64 = reader.readLine();
-            byte[] decodedKey = Base64.getDecoder().decode(publicKeyBase64);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            this.publicKey = keyFactory.generatePublic(new X509EncodedKeySpec(decodedKey));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    // Lưu khóa riêng dưới dạng Base64 vào file
+//    public void savePrivateKeyToFile(String privateKeyFile) throws Exception {
+//        FileOutputStream fileOut = new FileOutputStream(privateKeyFile);
+//        fileOut.write(Base64.getEncoder().encodeToString(this.privateKey.getEncoded()).getBytes(StandardCharsets.UTF_8));
+//        fileOut.close();
+//    }
+//
+//    // Lưu khóa công khai dưới dạng Base64 vào file
+//    public void savePublicKeyToFile(String publicKeyFile) throws Exception {
+//        FileOutputStream fileOut = new FileOutputStream(publicKeyFile);
+//        fileOut.write(Base64.getEncoder().encodeToString(this.publicKey.getEncoded()).getBytes(StandardCharsets.UTF_8));
+//        fileOut.close();
+//    }
+//
+//    // Đọc khóa riêng từ file và giải mã từ Base64
+//    public void loadPrivateKeyFromFile(String privateKeyFile) throws Exception {
+//        File file = new File(privateKeyFile);
+//        if (!file.exists()) {
+//            throw new Exception("File private key không tồn tại");
+//        }
+//        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+//            String privateKeyBase64 = reader.readLine();
+//            byte[] decodedKey = Base64.getDecoder().decode(privateKeyBase64);
+//            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+//            this.privateKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(decodedKey));
+//        }
+//    }
+//
+//    // Đọc khóa công khai từ file và giải mã từ Base64
+//    public void loadPublicKeyFromFile(String publicKeyFile) throws DigitalSignatureException {
+//        File file = new File(publicKeyFile);
+//        if (!file.exists()) {
+//            throw new DigitalSignatureException("File public key không tồn tại");
+//        }
+//        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+//            String publicKeyBase64 = reader.readLine();
+//            byte[] decodedKey = Base64.getDecoder().decode(publicKeyBase64);
+//            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+//            this.publicKey = keyFactory.generatePublic(new X509EncodedKeySpec(decodedKey));
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        } catch (InvalidKeySpecException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public void loadPrivateKey(String privateKeyBase64) throws DigitalSignatureException {
 
@@ -121,14 +122,16 @@ public class DigitalSignature {
             throw new DigitalSignatureException("Public key không hợp lệ!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Load public key failed");
             throw new DigitalSignatureException(e.getMessage(), e);
         }
     }
-
+    public void setPublicKey(String publicKeyBase64) throws Exception {
+        byte[] publicKeyBytes = Base64.getDecoder().decode(publicKeyBase64);
+        this.publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(publicKeyBytes));
+    }
     public void loadPublicKey(byte[] publicKeyByte) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyFactory keyFactory = null;
-        keyFactory = KeyFactory.getInstance(ALGO);
-        this.publicKey = keyFactory.generatePublic(new X509EncodedKeySpec(publicKeyByte));
+        this.publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(publicKeyByte));
 
     }
 
@@ -213,6 +216,16 @@ public class DigitalSignature {
         }
     }
 
+    public boolean verifyText(String text, String signedData) throws InvalidKeyException, SignatureException, NoSuchAlgorithmException {
+        Signature signature = Signature.getInstance(SIGNATURE_ALGO);
+        System.out.println("Text:" + text);
+        System.out.println("SignedData: " + signedData);
+        byte[] hashedData = messageDigest.digest(text.getBytes());
+        byte[] signedBytes = Base64.getDecoder().decode(signedData);
+        signature.initVerify(publicKey);
+        signature.update(hashedData);
+        return signature.verify(signedBytes);
+    }
     // verìy with public key
     public boolean verifySignature(String data, String signatureBase64) throws DigitalSignatureException {
         if (this.publicKey == null) {
@@ -254,8 +267,8 @@ public class DigitalSignature {
             String publicKeyBase64 = ds.keyToBase64(ds.getPublicKey());
             System.out.println("Private Key: " + privateKeyBase64);
             System.out.println("Public Key: " + publicKeyBase64);
-            ds.savePublicKeyToFile("D:/Study/Four_year/ATTT/testkey/publickey");
-            ds.savePrivateKeyToFile("D:/Study/Four_year/ATTT/testkey/privatekey");
+//            ds.savePublicKeyToFile("D:/Study/Four_year/ATTT/testkey/publickey");
+//            ds.savePrivateKeyToFile("D:/Study/Four_year/ATTT/testkey/privatekey");
 //            // Dữ liệu cần ký
 //            String data = "This is a test message.";
 //
