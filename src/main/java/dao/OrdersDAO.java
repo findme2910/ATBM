@@ -169,7 +169,7 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 		return query(sql, new OrderDetailMapper());
 	}
 
-	public Orders findBy(int orderId) {
+	public Orders find(int orderId) {
 		String sql = "select * from orders where id = ?";
 		return query(sql, new OrderMapper(), orderId).get(0);
 	}
@@ -184,9 +184,9 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 //		User user = new User();
 //		user.setId(11);
 //		System.out.println(order.getOrdersByUserAndStatus(user,0));
-		Orders orders = new Orders(1,5,20,"158/d","0987817240","Chưa Thanh Toán");
-		System.out.println(	order.insertOrder(orders));
 
+		Orders o = order.find(2);
+		System.out.println(o.toString());
 
 	}
 }

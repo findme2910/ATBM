@@ -76,7 +76,7 @@ public class KeyDAO implements IDAO<Keys> {
 
     @Override
     public Keys get(int userId) {
-        String sql = "SELECT * FROM `keys` WHERE userId = ?;";
+        String sql = "SELECT * FROM `keys` WHERE userId = ? and status = 1;";
         try (Handle handle = jdbi.open()) {
             return handle.createQuery(sql)
                     .bind(0, userId)

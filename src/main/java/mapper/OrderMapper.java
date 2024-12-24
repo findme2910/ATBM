@@ -6,6 +6,7 @@ import bean.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class OrderMapper implements RowMapper<Orders> {
     @Override
@@ -18,6 +19,7 @@ public class OrderMapper implements RowMapper<Orders> {
              order.setTotalPrice(resultSet.getFloat("total_price"));
              order.setShippingFee(resultSet.getFloat("shipping_fee"));
              order.setPhoneNumber(resultSet.getString("phone_number"));
+             order.setCreateAt(resultSet.getTimestamp("create_at"));
              return order;
         } catch (SQLException e) {
             return null;

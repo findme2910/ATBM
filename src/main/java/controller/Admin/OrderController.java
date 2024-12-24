@@ -1,8 +1,10 @@
 package controller.Admin;
 
 
+import Service.OrdersService;
 import bean.OrderDetailTable;
 import bean.OrderTable;
+import bean.Orders;
 import bean.digitalsignature.SignedOrder;
 import com.google.gson.Gson;
 
@@ -53,10 +55,8 @@ public class OrderController extends HttpServlet {
         for (OrderTable order : listOrder) {
             List<OrderDetailTable> listOrderDetail = orderDao.getOrderDetailsByOrderId(order.getId());
             order.setListDetails(listOrderDetail);
-            int signatureStatus = signedOrderDAO.getSignatureStatus(order.getId());
-            order.setSignatureStatus(signatureStatus);
 
-            // Kiểm tra chữ ký và thiết lập trạng thái
+            // Kiểm tra chữ ký và cập nhật trạng thái
             boolean isSignatureValid = checkOrderSignature(order.getId());
             order.setSignatureStatus(isSignatureValid ? 1 : 0);
         }
@@ -140,24 +140,34 @@ public class OrderController extends HttpServlet {
 
     private boolean checkOrderSignature(int orderId) {
         try {
-            OrderTable order = orderDao.getOrderById(orderId);
+            Orders order = orderDao.find(orderId);
             if (order == null) return false;
-
-            String orderHash = hash(order.toString());
-
+            //hash lại đơn hàng
+            OrdersService ordersService = new OrdersService();
+            String orderHash = ordersService.proccessOrderHash(order);
+            System.out.println(orderHash);
+            //lấy ra id của keys tương ứng với đơn hàng
             SignedOrder signedOrder = signedOrderDAO.getById(orderId);
+            System.out.println(signedOrder);
             if (signedOrder == null) return false;
 
-            String signedOrderData = signedOrder.getSignOrder();
-            int publicKeyId = signedOrder.getPublicKeyId();
-
+            String signedOrderData = signedOrder.getSignOrder(); // lấy ra chữ ký
+            System.out.println(signedOrderData);
+            int publicKeyId = signedOrder.getPublicKeyId(); // lấy ra id của publickey
+            System.out.println(publicKeyId);
+            //lấy ra publickey từ bảng keys
             String publicKey = signedOrderDAO.getPublicKeyById(publicKeyId);
             if (publicKey == null) return false;
+            System.out.println(publicKey);
 
+            // kiểm tra chữ ký
             DigitalSignature digitalSignature = new DigitalSignature();
             digitalSignature.loadPublicKey(publicKey); // Load publicKey từ bảng 'keys'
-
-            return digitalSignature.verifySignature(orderHash, signedOrderData);
+            boolean isValid = digitalSignature.verifySignature(orderHash, signedOrderData);
+            // Cập nhật trạng thái trong bảng sign-order
+            int signatureStatus = isValid ? 1 : 0;
+            signedOrderDAO.updateSignatureStatus(orderId, signatureStatus);
+            return isValid;
 
         } catch (Exception e) {
             e.printStackTrace();

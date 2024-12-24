@@ -154,10 +154,9 @@
                     String iconClass = "";
                     String tooltipText = "";
                     String btnClass = "btn-signature-status";
-
                     switch (signatureStatus) {
                         case 0:
-                            iconClass = "fas fa-question-circle text-warning";
+                            iconClass = "fas fa-question-circle text-danger";
                             tooltipText = "Đã bị thay đổi";
                             break;
                         case 1:

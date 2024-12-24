@@ -26,4 +26,6 @@ public interface IOrdersDAO {
 	List<OrderTable> getOrdersByUserAndStatus(User user, int status);
 
 	List<OrderDetailTable> getOrderDetailsByOrderIdAndReviewStatus(int id);
+
+	Orders find(int orderId);
 }

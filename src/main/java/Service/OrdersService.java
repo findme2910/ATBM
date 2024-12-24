@@ -45,7 +45,7 @@ public class OrdersService implements IOrdersService {
 	@Override
 	public String proccessOrderHash(Orders order) throws DigitalSignatureException {
 		List<OrderDetailTable> listDetails = ordersDAO.getOrderDetailsByOrderId(order.getId());
-		OrderSign orderSign = new OrderSign(order.getId(), order.getIdUser(), new Timestamp(System.currentTimeMillis()), listDetails);
+		OrderSign orderSign = new OrderSign(order.getId(), order.getIdUser(), order.getCreateAt(), listDetails);
 		System.out.println(orderSign);
 		return Hash.hash(orderSign.toString());
 	}

@@ -28,7 +28,11 @@ public class Orders {
         this.phoneNumber = phoneNumber;
         this.createAt = createAt;
     }
-
+    public Orders(int id, int idUser, Timestamp createAt) {
+        this.id = id;
+        this.idUser = idUser;
+        this.createAt = createAt;
+    }
     public Orders(int idUser, float totalPrice, float shippingFee, String address,
                   String phoneNumber, int status, List<CartItem> lp) {
         this.idUser = idUser;
