@@ -53,6 +53,7 @@ public class OrdersService implements IOrdersService {
 		List<OrderDetailTable> listDetails = ordersDAO.getOrderDetailsByOrderId(orderId);
 		OrderSign orderSign = new OrderSign(o.getId(), user.getId(), o.getCreateAt(), listDetails);
 		System.out.println(orderSign);
+		System.out.println(Hash.hash(orderSign.toString()));
 		return Hash.hash(orderSign.toString());
 	}
 //	public String hashOrder

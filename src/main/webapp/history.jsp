@@ -445,11 +445,11 @@
                 </div>
                 <div class="modal-footer">
 
-<%--                    <button id="btnSign" class="btn btn-custom sign-btn" data-toggle="modal"--%>
-<%--                            data-target="#signOrderModal"--%>
-<%--                            data-order-id="9">--%>
-<%--                        Ký đơn hàng--%>
-<%--                    </button>--%>
+                    <button id="btnSign" class="btn btn-custom sign-btn" data-toggle="modal"
+                            data-target="#signOrderModal"
+                            data-order-id="9">
+                        Ký đơn hàng
+                    </button>
 
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -475,8 +475,8 @@
                             <h3 class="text-center text mb-4">Mã Hash đơn hàng của bạn</h3>
                             <div class="d-flex align-items-center justify-content-center gap-3 mt-5">
                                 <!-- Mã Hash -->
-                                <p class="fs-5 fw-semibold bg-light text rounded px-3 py-2 shadow-sm">
-                                    <%= (String) session.getAttribute("orderHashed") %>
+                                <p id="hashedOrder" class="fs-5 fw-semibold bg-light text rounded px-3 py-2 shadow-sm">
+
                                 </p>
                                 <!-- Nút Copy -->
                                 <button style="margin-top: -13px;margin-left: 20px"
@@ -518,6 +518,7 @@
     <script>
         $(document).ready(function () {
             $("#btnSign").click(function () {
+                $('#signalInput').val("");
                 var idO = orderIdParam;
                 $.ajax({
                     url: 'SignOrder',
@@ -527,8 +528,8 @@
                         orderId: idO
                     },
                     success: function (data) {
-                        // console.log(data);
-                        // $('#signalInput').val(data);
+                        console.log(data);
+                        $('#hashedOrder').text(data);
                         $('#signOrderModal').modal('show');
                     }
                 });
@@ -578,7 +579,17 @@
 
                         },
                         success: function (data) {
-                            window.location.href = "HomePageController";
+                            Swal.fire({
+                                text: "Kí thành công",
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // $('#signOrderModal').modal('hide');
+                                    location.reload();
+                                }
+                            });
+
                         }, error: function (data) {
                             String
                             var errorText = data.responseText;
