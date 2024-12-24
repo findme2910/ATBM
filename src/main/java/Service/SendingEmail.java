@@ -69,32 +69,32 @@ public class SendingEmail {
     }
 
     // đây là phương thức email dạng văn bản bình thường
-    public String sendTextEmail(String messageContentContact, String userName){
+    public String sendTextEmail(String messageContentContact, String subject){
         //bắt đầu tạo ra cấu hình email
         String email = "linhson208@gmail.com";
         String pword = "towk gnyo yraf ohhh";
         String host = "smtp.gmail.com";
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
 
-        Session session = Session.getInstance(props, new Authenticator() {
+        Properties properties = new Properties();
+
+        properties.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        properties.put("mail.smtp.port", "587"); //TLS Port
+        properties.put("mail.smtp.auth", "true"); //enable authentication
+        properties.put("mail.smtp.starttls.enable", "true"); //enable
+
+
+        Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(email, pword);
             }
         });
 
+        MimeMessage message = new MimeMessage(session);
         try {
-            Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-
-            message.setSubject("Tên người dùng: " + userName + "\nEmail: " + userEmail);
-
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+            message.setSubject(subject);
             message.setText(messageContentContact);
-
             Transport.send(message);
             return "success";
         } catch (MessagingException e) {
@@ -165,8 +165,8 @@ public class SendingEmail {
     }
 
     public static void main(String[] args) {
-        SendingEmail a= new SendingEmail("tamle7723@gmail.com","91e12937ef6be30e81f3bab95ca8be46");
-        a.sendWarning("Có người dùng ");
+        SendingEmail a= new SendingEmail("uyent612@gmail.com");
+        a.sendTextEmail("Your public key has been reported and is now marked as expired. Please login to generate a new key: http://localhost:8081/login","reportedKey");
     }
 
 }
