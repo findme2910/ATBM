@@ -87,20 +87,19 @@ public class KeyDAO implements IDAO<Keys> {
     }
     //kiểm tra user có publickey hay chưa
     public boolean hasActivePublicKey(int userId) {
-        String sql = "SELECT status FROM `keys` WHERE userId = ?;";
+        String sql = "SELECT userId FROM `keys` WHERE userId = ? AND status = 1;";
         try (Handle handle = jdbi.open()) {
-            Integer status = handle.createQuery(sql)
+            int count = handle.createQuery(sql)
                     .bind(0, userId)
                     .mapTo(Integer.class)
-                    .findOne()
-                    .orElse(null); // Nếu không có dòng nào, trả về null
-            // Kiểm tra kết quả
-            return status != null && status == 1; // true nếu status = 1
+                    .one(); // Lấy kết quả COUNT
+            return count > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false; // Lỗi trong quá trình truy vấn
         }
     }
+
     public int expireActivePublicKeys(int userId) {
         String sql = "UPDATE `keys` SET status = :newStatus WHERE userId = :userId AND status = :currentStatus";
         return jdbi.withHandle(handle ->
@@ -113,8 +112,9 @@ public class KeyDAO implements IDAO<Keys> {
     }
     public static void main(String[] args) {
         KeyDAO keyDAO = KeyDAO.getInstance();
-        Keys key = new Keys(45,"testpublickey");
-        keyDAO.insert(key);
+
+        System.out.println(keyDAO.hasActivePublicKey(45));
+
 //        int testUserId = 12; // Thay bằng userId bạn muốn kiểm tra
 //        boolean hasPublicKey = keyDAO.hasActivePublicKey(testUserId);
 //        if (hasPublicKey) {
