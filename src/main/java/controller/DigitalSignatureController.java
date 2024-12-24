@@ -139,15 +139,19 @@ public class DigitalSignatureController extends BaseServlet {
         }
     }
 
-    private void proccessHashOrder() throws DigitalSignatureException {
+    private void proccessHashOrder() throws DigitalSignatureException, IOException {
+        out = response.getWriter();
         HttpSession session = request.getSession(true);
+        session.removeAttribute("orderHashed");
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         session.setAttribute("orderId", orderId);
         User user = (User) session.getAttribute("user");
         IOrdersService ordersService = new OrdersService();
         String hashOrder = ordersService.proccessOrderHash(orderId, user);
-        System.out.println(hashOrder);
         session.setAttribute("orderHashed", hashOrder);
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.println(hashOrder);
+        out.flush();
 
 
     }
