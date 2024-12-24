@@ -101,16 +101,29 @@ public class KeyDAO implements IDAO<Keys> {
             return false; // Lỗi trong quá trình truy vấn
         }
     }
-
+    public int expireActivePublicKeys(int userId) {
+        String sql = "UPDATE `keys` SET status = :newStatus WHERE userId = :userId AND status = :currentStatus";
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("newStatus", 0)
+                        .bind("userId", userId)
+                        .bind("currentStatus", 1)
+                        .execute()
+        );
+    }
     public static void main(String[] args) {
         KeyDAO keyDAO = KeyDAO.getInstance();
-        int testUserId = 12; // Thay bằng userId bạn muốn kiểm tra
-        boolean hasPublicKey = keyDAO.hasActivePublicKey(testUserId);
-        if (hasPublicKey) {
-            System.out.println("User " + testUserId + " đã có publicKey.");
-        } else {
-            System.out.println("User " + testUserId + " chưa có publicKey.");
-        }
+        Keys key = new Keys(45,"testpublickey");
+        keyDAO.insert(key);
+//        int testUserId = 12; // Thay bằng userId bạn muốn kiểm tra
+//        boolean hasPublicKey = keyDAO.hasActivePublicKey(testUserId);
+//        if (hasPublicKey) {
+//            System.out.println("User " + testUserId + " đã có publicKey.");
+//        } else {
+//            System.out.println("User " + testUserId + " chưa có publicKey.");
+//        }
+
+
 ////      Tao key
 //        Keys key = new Keys();
 //        key.setUserId(12);
