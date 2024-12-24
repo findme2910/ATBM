@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Setter
 @Getter
-@ToString
+//@ToString
 public class CartItem {
     private Products product;
     private int quantity;

@@ -17,12 +17,19 @@ public class SignedOrder implements Serializable {
     public SignedOrder() {
     }
 
+    public SignedOrder(int orderId, int publicKeyId, String signOrder) {
+        this.orderId = orderId;
+        this.publicKeyId = publicKeyId;
+        this.signOrder = signOrder;
+    }
+
     public SignedOrder(int orderId, int publicKeyId, String signOrder, int orderStatus) {
         this.orderId = orderId;
         this.publicKeyId = publicKeyId;
         this.signOrder = signOrder;
         this.orderStatus = orderStatus;
     }
+
 
     public SignedOrder(int id, int orderId, int publicKeyId, String signOrder, int orderStatus) {
         this.id = id;

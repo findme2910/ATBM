@@ -246,7 +246,7 @@
     <!-- Lỗi và Nút Xác Nhận -->
     <div class="text-center mt-4" style="margin-left:42%;">
         <span id="errorSign" class="text-danger d-block mb-2"></span>
-        <button class="btn-success button">Xác nhận</button>
+        <button id="signedOrder" class="btn-success button">Xác nhận</button>
     </div>
 </div>
 
@@ -280,8 +280,38 @@
                 }
             });
         });
+        $('#signedOrder').click(function () {
+            var signedOrder = $('#signalInput').val();
+            if (signedOrder === "") {
+                Swal.fire({
+                    titleText: "Chưa nhập chữ ký",
+                    icon: "error"
+                });
+            } else {
+                $.ajax({
+                    url: 'SignOrder',
+                    type: 'POST',
+                    data: {
+                        action: 'sign',
+                        signedOrder: signedOrder
+
+                    },
+                    success: function (data) {
+                        window.location.href = "HomePageController";
+                    }, error: function (data) {
+                        String
+                        var errorText = data.responseText;
+                        Swal.fire({
+                            titleText: errorText,
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+        });
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <%--<jsp:include page="layout/footer.jsp"/>--%>
 <!-- popper -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
