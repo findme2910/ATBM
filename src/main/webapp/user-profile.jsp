@@ -99,7 +99,7 @@
         try {
             Jdbi jdbi = JDBIConnector.get();
             String publicKey = jdbi.withHandle(handle ->
-                    handle.createQuery("SELECT publicKey FROM `keys` WHERE userId = :userId")
+                    handle.createQuery("SELECT publicKey FROM `keys` WHERE userId = :userId and status = 1")
                             .bind("userId", user.getId())
                             .mapTo(String.class)
                             .findOne()

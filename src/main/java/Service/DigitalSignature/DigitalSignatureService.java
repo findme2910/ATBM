@@ -50,7 +50,6 @@ public class DigitalSignatureService {
         String userInfor = new VerifyUser(user.getId(), user.getCreateAt(), privateKey).toString();
 //Xác thực ngừoi dùng
         System.out.println("Xác thực ngừoi dùng");
-        System.out.println(digitalSignature.verifySignature(userInfor, key.getUserSignature()));
 
     }
 
@@ -96,12 +95,9 @@ public class DigitalSignatureService {
     public void saveKeyWithUser(User user, String privateKey, String publicKey) throws DigitalSignatureException {
         digitalSignature = new DigitalSignature();
         digitalSignature.loadPublicKey(publicKey);
-        digitalSignature.loadPrivateKey(privateKey);
-        //Chữ ký định danh ngừoi dùng : id + thời gian tại tài khoản + hash private key
-        String userSignature = digitalSignature.signDataBase64(new VerifyUser(user.getId(), user.getCreateAt(), privateKey).toString());
+        digitalSignature.loadPrivateKey(privateKey); 
         //insert chỉ lấy userId, publicKey và userSignature
-        keysDAO.insert(new Keys(0, user.getId(), publicKey, null, true, userSignature));
-
+        keysDAO.insert(new Keys(user.getId(), publicKey));
     }
 
     public boolean isExitsKeys(User user) {

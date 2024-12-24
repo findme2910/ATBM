@@ -113,6 +113,8 @@ public class KeyDAO implements IDAO<Keys> {
     }
     public static void main(String[] args) {
         KeyDAO keyDAO = KeyDAO.getInstance();
+        Keys key = new Keys(45,"testpublickey");
+        keyDAO.insert(key);
 //        int testUserId = 12; // Thay bằng userId bạn muốn kiểm tra
 //        boolean hasPublicKey = keyDAO.hasActivePublicKey(testUserId);
 //        if (hasPublicKey) {

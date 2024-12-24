@@ -148,6 +148,7 @@ public class DigitalSignatureController extends BaseServlet {
         }
 
         Keys key = new Keys(user.getId(), publicKey);
+        System.out.println(key.toString());
         keyDAO.insert(key);
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Lưu Public Key thành công.");
