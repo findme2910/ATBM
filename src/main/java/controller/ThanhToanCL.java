@@ -116,6 +116,7 @@ public class ThanhToanCL extends HttpServlet {
 //Lấy id của đơn hàng vừa thêm vào db
                 order.setId(orderId);
                 String orderHashed = orderService.proccessOrderHash(order);
+                session.setAttribute("orderId", orderId);
                 session.setAttribute("orderHashed", orderHashed);
                 response.sendRedirect("sign-order.jsp");
             } catch (Exception e) {

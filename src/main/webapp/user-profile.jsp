@@ -99,7 +99,7 @@
         try {
             Jdbi jdbi = JDBIConnector.get();
             String publicKey = jdbi.withHandle(handle ->
-                    handle.createQuery("SELECT publicKey FROM `keys` WHERE userId = :userId")
+                    handle.createQuery("SELECT publicKey FROM `keys` WHERE userId = :userId and status = 1")
                             .bind("userId", user.getId())
                             .mapTo(String.class)
                             .findOne()
@@ -320,22 +320,19 @@
 </div>
 </div>
 
+<!-- Lightbox -->
 <div id="lightbox" class="lightbox">
     <div class="lightbox-content">
-        <div class="text-center">
-            <h4 class="mb-0">Người dùng: <%= user.getEmail() %></h4>
-        </div>
         <span class="close-btn" id="closeLightbox">&times;</span>
-        <p>Last Seen: <%= lastSeenMessage %></p>
-        <label for="publicKey">Public Key:</label>
-        <input type="text" id="publicKey" value="<%= InfopublicKey %>" readonly class="form-control">
-        <p>* Lưu ý : nếu key hiện tại của bạn không trùng với key hệ thống đã lưu, vui lòng nhấn report để cấp lại key </p>
-        <div class="col d-flex justify-content-center">
-            <button id="report-keyButton" class="btn btn-secondary">Report</button>
-        </div>
+        <h4>Xác nhận Báo cáo</h4>
+        <p>Public Key: <input type="text" id="publicKey" value="<%= InfopublicKey %>" readonly class="form-control"></p>
+        <p>Bạn có chắc chắn muốn báo cáo key? Thao tác này sẽ gửi email đến bạn.</p>
+        <button id="confirm-report" class="btn btn-danger">Đồng ý</button>
+        <button id="cancel-report" class="btn btn-secondary">Hủy</button>
     </div>
 </div>
-
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"></script>
@@ -371,71 +368,49 @@
     });
 
 
+    const lightbox = $('#lightbox');
 
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     const deleteKeyButton = document.getElementById("report-keyButton");
-    //
-    //     deleteKeyButton.addEventListener("click", function () {
-    //         const userConfirmed = confirm("Bạn có chắc chắn muốn report");
-    //         if (userConfirmed) {
-    //             fetch('/delete-double-key', {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //                 body: JSON.stringify({ userId: USER_ID })
-    //             })
-    //                 .then(response => response.json())
-    //                 .then(data => {
-    //                     if (data.success) {
-    //                         alert("Cặp key đã được xóa thành công!");
-    //                         location.reload();
-    //                     } else {
-    //                         alert("Xóa cặp key thất bại. Vui lòng thử lại!");
-    //                     }
-    //                 })
-    //                 .catch(error => {
-    //                     console.error("Error:", error);
-    //                     alert("Đã xảy ra lỗi. Vui lòng thử lại!");
-    //                 });
-    //         }
-    //     });
-    // });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const deleteKeyButton = document.getElementById("report-keyButton");
-
-        deleteKeyButton.addEventListener("click", function () {
-            const userConfirmed = confirm("Bạn có chắc chắn muốn report?");
-
-            if (userConfirmed) {
-                const userEmail = "<%= user.getEmail() %>"; // Lấy email từ JSP
-                alert("Hộp thư đã được gửi đến email " + userEmail);
-
-                // Gọi server để gửi email
-                fetch('/send-email', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: userEmail,
-                        message: 'Hộp thư đã được gửi đến email của bạn. Cảm ơn bạn đã xác nhận report.'
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Email sent successfully:", data);
-                    })
-                    .catch(error => {
-                        console.error("Error sending email:", error);
-                    });
-            } else {
-                alert("Bạn đã hủy báo cáo.");
-            }
-        });
+    // Open lightbox
+    $('#info-keyButton').click(function () {
+        lightbox.fadeIn(); // Hiển thị lightbox
     });
 
+    // Close lightbox
+    $('#closeLightbox, #cancel-report').click(function () {
+        lightbox.fadeOut(); // Đóng lightbox
+    });
+
+    // Confirm report
+    $('#confirm-report').click(function () {
+        // Gửi yêu cầu AJAX đến servlet
+        $.ajax({
+            url: '/reportServlet',
+            type: 'GET',
+            data: {
+                userId: '<%= user.getId() %>',
+                email: '<%= user.getEmail() %>'
+            },
+            success: function (response) {
+                // Hiển thị thông báo thành công
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Email đã được gửi!',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                });
+                lightbox.fadeOut(); // Đóng lightbox sau khi gửi thành công
+            },
+            error: function () {
+                // Hiển thị thông báo lỗi
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Đã xảy ra lỗi khi gửi email. Vui lòng thử lại.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                });
+            },
+        });
+    });
 
 
 </script>

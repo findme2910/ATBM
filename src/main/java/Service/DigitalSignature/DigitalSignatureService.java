@@ -5,21 +5,29 @@ import bean.digitalsignature.Keys;
 import bean.digitalsignature.OrderSign;
 import bean.digitalsignature.SignedOrder;
 import bean.digitalsignature.VerifyUser;
+import dao.IOrdersDAO;
+import dao.OrdersDAO;
 import dao.digitalsignature.IDAO;
 import dao.digitalsignature.KeyDAO;
 import dao.digitalsignature.SignedOrderDAO;
 import exceptions.DigitalSignatureException;
+import utils.DSModel;
 import utils.DigitalSignature;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import static utils.Hash.hash;
 
 
 public class DigitalSignatureService {
     private DigitalSignature digitalSignature;
-    private IDAO<Keys> keysDAO;
+    private KeyDAO keysDAO;
     private IDAO<SignedOrder> signedOrderDAO;
 
-    public DigitalSignatureService() {
+    public DigitalSignatureService() throws NoSuchAlgorithmException {
         this.digitalSignature = new DigitalSignature();
         this.keysDAO = new KeyDAO();
         this.signedOrderDAO = new SignedOrderDAO();
@@ -37,24 +45,26 @@ public class DigitalSignatureService {
     public void genKey() throws DigitalSignatureException {
         digitalSignature.generateKeyPair();
     }
-    public void verifyUser(User user, String privateKey) throws DigitalSignatureException {
-        Keys key = keysDAO.get(user.getId());
-        String publicKey = key.getPublicKey();
-        //Load public key
-        digitalSignature.loadPublicKey(publicKey);
-        //Lấy thông tin ngừoi dùng đã được hash
-        String userInfor = new VerifyUser(user.getId(), user.getCreateAt(), privateKey).toString();
-//Xác thực ngừoi dùng
-        System.out.println("Xác thực ngừoi dùng");
-        System.out.println(digitalSignature.verifySignature(userInfor, key.getUserSignature()));
 
-    }
+//    public void verifyUser(User user, String privateKey) throws DigitalSignatureException {
+//        Keys key = keysDAO.get(user.getId());
+//        String publicKey = key.getPublicKey();
+//        //Load public key
+//        digitalSignature.loadPublicKey(publicKey);
+//        //Lấy thông tin ngừoi dùng đã được hash
+//        String userInfor = new VerifyUser(user.getId(), user.getCreateAt(), privateKey).toString();
+
+
+    /// /Xác thực ngừoi dùng
+//        System.out.println("Xác thực ngừoi dùng");
+//        System.out.println(digitalSignature.verifySignature(userInfor, key.getUserSignature()));
+//
+//    }
 
 
 
     //Ký đơn hàng
     public void signOrder(OrderSign orderSign, String privateKey, User user) throws DigitalSignatureException {
-
         this.digitalSignature.loadPrivateKey(privateKey);//load private key
         System.out.println("load private key");
         System.out.println(digitalSignature.keyToBase64(digitalSignature.getPrivateKey()));
@@ -90,23 +100,50 @@ public class DigitalSignatureService {
         System.out.println(verify);
     }
 
-    public void saveKeyWithUser(User user, String privateKey, String publicKey) throws DigitalSignatureException {
-
+    public void saveKeyWithUser(User user, String privateKey, String publicKey) throws DigitalSignatureException, NoSuchAlgorithmException {
         digitalSignature = new DigitalSignature();
         digitalSignature.loadPublicKey(publicKey);
-        digitalSignature.loadPrivateKey(privateKey);
-        //Chữ ký định danh ngừoi dùng : id + thời gian tại tài khoản + hash private key
-        String userSignature = digitalSignature.signDataBase64(new VerifyUser(user.getId(), user.getCreateAt(), privateKey).toString());
+        digitalSignature.loadPrivateKey(privateKey); 
         //insert chỉ lấy userId, publicKey và userSignature
-        keysDAO.insert(new Keys(0, user.getId(), publicKey, null, true, userSignature));
-
+        keysDAO.insert(new Keys(user.getId(), publicKey));
     }
 
     public boolean isExitsKeys(User user) {
-        return keysDAO.get(user.getId()) != null;
+        return keysDAO.hasActivePublicKey(user.getId());
     }
 //    public static void main(String[] args) {
 //        DigitalSignatureService digitalSignatureService = new DigitalSignatureService();
 //    }
+    public void saveToFile(String filePath, String content) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(content);
+            writer.flush();
+        } catch (IOException e) {
+            // Log lỗi và ném ngoại lệ để servlet xử lý
+            System.err.println("Lỗi khi lưu file: " + e.getMessage());
+            throw e; // Đảm bảo ngoại lệ được truyền lên cấp cao hơn
+        }
+    }
 
+    public boolean verifyUser(User user, String signedOrder, String orderHashed) throws Exception {
+        String publicKeyInDb = keysDAO.get(user.getId()).getPublicKey();
+        System.out.println("publicKey: " + publicKeyInDb);
+        DSModel dsModel = new DSModel();
+        dsModel.setPublicKey(publicKeyInDb);
+        System.out.println(dsModel.verifyText(orderHashed, signedOrder));
+        return dsModel.verifyText(orderHashed, signedOrder);
+
+
+    }
+
+    public void insertSignOrder(int orderId, String signedOrder, int id) {
+        IOrdersDAO iOrdersDAO = new OrdersDAO();
+        iOrdersDAO.updateOrderStatus(orderId, 1);
+        int publicKeyId = keysDAO.get(id).getId();
+        SignedOrder s = new SignedOrder(orderId, publicKeyId, signedOrder);
+        signedOrderDAO.insert(s);
+    }
 }
+
+
+

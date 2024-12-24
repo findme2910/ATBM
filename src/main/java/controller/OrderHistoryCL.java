@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -32,7 +33,11 @@ public class OrderHistoryCL extends BaseServlet {
     public void init() throws ServletException {
         super.init();
         this.dao = new OrdersDAO();
-        this.digitalSignatureService = new DigitalSignatureService();
+        try {
+            this.digitalSignatureService = new DigitalSignatureService();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         LoggingConfig.setup(); // Thiết lập logging
     }
 
