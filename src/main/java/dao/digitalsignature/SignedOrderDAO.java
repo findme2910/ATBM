@@ -35,8 +35,7 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
     @Override
     public boolean insert(SignedOrder signedOrder) {
         try (Handle handle = jdbi.open()) {
-
-            int result = handle.createUpdate("INSERT INTO `signed-orders` (orderId ,publicKeyId , signOrder, orderStatus) VALUES ( ? ,?, ?, 0)")
+            int result = handle.createUpdate("INSERT INTO `signed-orders` (orderId ,publicKeyId , signOrder, orderStatus) VALUES ( ? ,?, ?, 1)")
                     .bind(0, signedOrder.getOrderId())
                     .bind(1, signedOrder.getPublicKeyId())
                     .bind(2, signedOrder.getSignOrder())

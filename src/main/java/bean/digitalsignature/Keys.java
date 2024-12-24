@@ -30,7 +30,11 @@ public class Keys implements Serializable {
         this.status = status;
         this.userSignature = userSignature;
     }
-
+    public Keys(int userId, String publicKey) {
+        this.userId = userId;
+        this.publicKey = publicKey;
+        this.status = status;
+    }
     @Override
     public String toString() {
         return "Keys{" +

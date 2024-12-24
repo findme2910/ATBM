@@ -60,7 +60,7 @@
                                     if (data.role === 1) {
                                         window.location.href = "admin_dashboard";
                                     } else if (data.role === 0) {
-                                        if (action === "genkey") {
+                                        if (data.action === "genkey") {
                                             window.location.href = "gen-key.jsp";
                                         } else {
                                             window.location.href = "HomePageController";

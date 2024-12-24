@@ -5,6 +5,7 @@ import bean.User;
 import dao.AccountDAO;
 import dao.LogDao;
 import dao.UserDAO;
+import dao.digitalsignature.KeyDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -101,6 +102,8 @@ public class LoginControl extends HttpServlet {
                 resp.addCookie(u);
                 resp.addCookie(p);
                 if (user.getRole() == 0) {
+                    KeyDAO keyDAO = KeyDAO.getInstance();
+                    boolean hasPublicKey = keyDAO.hasActivePublicKey(user.getId());
                     user.setLastActiveTime(LocalDateTime.now());
                     session.setAttribute("user", user);
                     session.setAttribute("flag", 0);
@@ -109,8 +112,13 @@ public class LoginControl extends HttpServlet {
                         cart = new ShoppingCart();
                         session.setAttribute("cart", cart);
                     }
-                    out.println("{\"role\":0}");
-                } else if (user.getRole() == 1) {
+                    if (!hasPublicKey) {
+                        // Người dùng chưa có publicKey
+                        out.println("{\"role\":0, \"action\":\"genkey\"}");
+                    }else {
+                    out.println("{\"role\":0}");}
+                }
+                else if (user.getRole() == 1) {
                     session.setAttribute("admin", user);
                     out.println("{\"role\":1}");
                 }
