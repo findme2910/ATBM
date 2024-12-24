@@ -101,6 +101,21 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
         }
     }
 
+    public String getPublicKeyById(int publicKeyId) {
+        String sql = "SELECT publicKey FROM `keys` WHERE id = ?";
+        try (Handle handle = jdbi.open()) {
+            return handle.createQuery(sql)
+                    .bind(0, publicKeyId)
+                    .mapTo(String.class)
+                    .findOne()
+                    .orElse(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     //Lấy ra danh sách trạng thái sig dựa vào orderID
     public int getSignatureStatus(int orderId) {
         String sql = "SELECT orderStatus FROM `signed-orders` WHERE orderId = ?";
