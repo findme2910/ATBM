@@ -81,12 +81,14 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
             return handle.createQuery(sql)
                     .bind(0, orderId)
                     .mapToBean(SignedOrder.class)
-                    .one();
+                    .findOne() // Trả về Optional<SignedOrder>
+                    .orElse(null); // Nếu không có kết quả, trả về null
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
 
     public List<SignedOrder> getByPublicKeyId(int publicKeyId) {
         String sql = "SELECT * FROM `signed-orders` WHERE publicKeyId = ?";
@@ -127,7 +129,15 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
                     .orElse(2); // Mặc định trả về 2 (Chưa được ký) nếu không có dữ liệu
         }
     }
-
+    public void updateSignatureStatus(int orderId, int status) {
+        String sql = "UPDATE `signed-orders` SET orderStatus = ? WHERE orderId = ?";
+        try (Handle handle = JDBIConnector.getJdbi().open()) {
+            handle.createUpdate(sql)
+                    .bind(0, status)
+                    .bind(1, orderId)
+                    .execute();
+        }
+    }
     public static void main(String[] args) {
         SignedOrderDAO signedOrderDAO = SignedOrderDAO.getInstance();
 
@@ -135,8 +145,7 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
 //        boolean inserted = dao.insert(newOrder);
 //        System.out.println("Insert success: " + inserted);
 
-        int order = signedOrderDAO.getSignatureStatus(1);
-        System.out.println(order);
+        SignedOrder sig =  signedOrderDAO.getById(2);
 //
 //        if (order.isPresent()) {
 //            SignedOrder updatedOrder = order.get();
@@ -146,6 +155,6 @@ public class SignedOrderDAO implements IDAO<SignedOrder> {
 //        }
 //        boolean removed = dao.remove(1);
 //        System.out.println("Remove success (status set to 0): " + removed);
-        System.out.println(signedOrderDAO.getAll());
+
     }
 }

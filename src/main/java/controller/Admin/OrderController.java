@@ -1,8 +1,10 @@
 package controller.Admin;
 
 
+import Service.OrdersService;
 import bean.OrderDetailTable;
 import bean.OrderTable;
+import bean.Orders;
 import bean.digitalsignature.SignedOrder;
 import com.google.gson.Gson;
 
@@ -10,6 +12,7 @@ import dao.IOrdersDAO;
 import dao.LogDao;
 import dao.OrdersDAO;
 import dao.digitalsignature.SignedOrderDAO;
+import utils.DSModel;
 import utils.DigitalSignature;
 
 import javax.servlet.ServletException;
@@ -50,15 +53,15 @@ public class OrderController extends HttpServlet {
 
     private void listOrders(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<OrderTable> listOrder = orderDao.getOrderforAdmin();
+        System.out.println(listOrder.toString());
         for (OrderTable order : listOrder) {
             List<OrderDetailTable> listOrderDetail = orderDao.getOrderDetailsByOrderId(order.getId());
             order.setListDetails(listOrderDetail);
-            int signatureStatus = signedOrderDAO.getSignatureStatus(order.getId());
+            System.out.println(listOrderDetail.toString());
+            // Kiểm tra chữ ký và cập nhật trạng thái
+            int signatureStatus  = checkOrderSignature(order.getId());
+            System.out.println(signatureStatus);
             order.setSignatureStatus(signatureStatus);
-
-            // Kiểm tra chữ ký và thiết lập trạng thái
-            boolean isSignatureValid = checkOrderSignature(order.getId());
-            order.setSignatureStatus(isSignatureValid ? 1 : 0);
         }
 
         req.setAttribute("listOrder", listOrder);
@@ -138,30 +141,36 @@ public class OrderController extends HttpServlet {
         }
     }
 
-    private boolean checkOrderSignature(int orderId) {
+    private int checkOrderSignature(int orderId) {
         try {
-            OrderTable order = orderDao.getOrderById(orderId);
-            if (order == null) return false;
-
-            String orderHash = hash(order.toString());
-
+            Orders order = orderDao.find(orderId);
+            System.out.println(order.toString());
+            if (order == null) return 2;
+            //hash lại đơn hàng
+            OrdersService ordersService = new OrdersService();
+            String orderHash = ordersService.proccessOrderHash(order);
+            //lấy ra id của keys tương ứng với đơn hàng
             SignedOrder signedOrder = signedOrderDAO.getById(orderId);
-            if (signedOrder == null) return false;
-
-            String signedOrderData = signedOrder.getSignOrder();
-            int publicKeyId = signedOrder.getPublicKeyId();
-
+            if (signedOrder == null) return 2;
+            String signedOrderData = signedOrder.getSignOrder(); // lấy ra chữ ký
+            int publicKeyId = signedOrder.getPublicKeyId(); // lấy ra id của publickey
+            //lấy ra publickey từ bảng keys
             String publicKey = signedOrderDAO.getPublicKeyById(publicKeyId);
-            if (publicKey == null) return false;
+            if (publicKey == null) return 2;
 
-            DigitalSignature digitalSignature = new DigitalSignature();
-            digitalSignature.loadPublicKey(publicKey); // Load publicKey từ bảng 'keys'
-
-            return digitalSignature.verifySignature(orderHash, signedOrderData);
+            // kiểm tra chữ ký
+            DSModel dsModel = new DSModel();
+            dsModel.setPublicKey(publicKey);
+            System.out.println(dsModel.verifyText(orderHash, signedOrderData));
+            boolean isValid = dsModel.verifyText(orderHash, signedOrderData);
+            // Cập nhật trạng thái trong bảng sign-order
+            int signatureStatus = isValid ? 1 : 0;
+            signedOrderDAO.updateSignatureStatus(orderId, signatureStatus);
+            return signatureStatus;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return 2;
         }
     }
 

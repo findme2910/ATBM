@@ -29,7 +29,7 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 	}
 
 	public List<OrderTable> getOrderforAdmin() {
-		String sql = "SELECT o.id AS id, u.user_name AS username, o.create_at AS create_at, " +
+		String sql = "SELECT o.id AS id, u.email as email, u.user_name AS username, o.create_at AS create_at, " +
 				"o.total_price AS total_price, o.shipping_fee AS shipping_fee, " +
 				"o.address AS address, o.phone_number AS phone_number, " +
 				"o.payment_status AS payment_status, o.order_status AS order_status " +
@@ -68,7 +68,7 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 	}
 	@Override
 	public OrderTable getOrderById(int orderId) {
-		String sql = "SELECT o.id AS id, u.user_name AS username, o.create_at AS create_at, " +
+		String sql = "SELECT o.id AS id, u.email as email, u.user_name AS username, o.create_at AS create_at, " +
 				"o.total_price AS total_price, o.shipping_fee AS shipping_fee, " +
 				"o.address AS address, o.phone_number AS phone_number, " +
 				"o.payment_status AS payment_status, o.order_status AS order_status " +
@@ -107,7 +107,7 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 
 	@Override
 	public List<OrderTable> getOrdersByUserAndStatus(User user, int status) {
-		String sql = "SELECT o.id AS id, u.user_name AS username, o.create_at AS create_at, " +
+		String sql = "SELECT o.id AS id, u.email as email ,u.user_name AS username, o.create_at AS create_at, " +
 				"o.total_price AS total_price, o.shipping_fee AS shipping_fee, " +
 				"o.address AS address, o.phone_number AS phone_number, " +
 				"o.payment_status AS payment_status, o.order_status AS order_status " +
@@ -120,7 +120,7 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 
 	@Override
 	public List<OrderTable> getOrdersByUser(User user) {
-		String sql = "SELECT o.id AS id, u.user_name AS username, o.create_at AS create_at, " +
+		String sql = "SELECT o.id AS id, u.email as email, u.user_name AS username, o.create_at AS create_at, " +
 				"o.total_price AS total_price, o.shipping_fee AS shipping_fee, " +
 				"o.address AS address, o.phone_number AS phone_number, " +
 				"o.payment_status AS payment_status, o.order_status AS order_status " +
@@ -170,7 +170,7 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 		return query(sql, new OrderDetailMapper());
 	}
 
-	public Orders findBy(int orderId) {
+	public Orders find(int orderId) {
 		String sql = "select * from orders where id = ?";
 		return query(sql, new OrderMapper(), orderId).get(0);
 	}
@@ -185,9 +185,9 @@ public class OrdersDAO extends AbstractDAO<Orders> implements IOrdersDAO {
 //		User user = new User();
 //		user.setId(11);
 //		System.out.println(order.getOrdersByUserAndStatus(user,0));
-		Orders orders = new Orders(1,5,20,"158/d","0987817240","Chưa Thanh Toán");
-		System.out.println(	order.insertOrder(orders));
 
+		List<OrderTable> o = order.getOrderforAdmin();
+		System.out.println(o.toString());
 
 	}
 }

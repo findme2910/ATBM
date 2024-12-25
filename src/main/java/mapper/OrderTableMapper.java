@@ -13,6 +13,7 @@ public class OrderTableMapper implements RowMapper<OrderTable> {
         OrderTable orderTable = new OrderTable();
         orderTable.setId(rs.getInt("id"));
         orderTable.setUsername(rs.getString("username"));
+        orderTable.setEmail(rs.getString("email"));
         orderTable.setTotal_price(rs.getInt("total_price"));
         orderTable.setShipping_fee(rs.getInt("shipping_fee"));
         orderTable.setAddress(rs.getString("address"));
