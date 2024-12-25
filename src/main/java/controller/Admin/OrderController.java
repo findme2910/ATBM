@@ -53,13 +53,15 @@ public class OrderController extends HttpServlet {
 
     private void listOrders(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<OrderTable> listOrder = orderDao.getOrderforAdmin();
+        System.out.println(listOrder.toString());
         for (OrderTable order : listOrder) {
             List<OrderDetailTable> listOrderDetail = orderDao.getOrderDetailsByOrderId(order.getId());
             order.setListDetails(listOrderDetail);
-
+            System.out.println(listOrderDetail.toString());
             // Kiểm tra chữ ký và cập nhật trạng thái
-            boolean isSignatureValid = checkOrderSignature(order.getId());
-            order.setSignatureStatus(isSignatureValid ? 1 : 0);
+            int signatureStatus  = checkOrderSignature(order.getId());
+            System.out.println(signatureStatus);
+            order.setSignatureStatus(signatureStatus);
         }
 
         req.setAttribute("listOrder", listOrder);
@@ -139,28 +141,22 @@ public class OrderController extends HttpServlet {
         }
     }
 
-    private boolean checkOrderSignature(int orderId) {
+    private int checkOrderSignature(int orderId) {
         try {
             Orders order = orderDao.find(orderId);
-            if (order == null) return false;
+            System.out.println(order.toString());
+            if (order == null) return 2;
             //hash lại đơn hàng
             OrdersService ordersService = new OrdersService();
-            System.out.println(order.toString());
             String orderHash = ordersService.proccessOrderHash(order);
-            System.out.println(orderHash);
             //lấy ra id của keys tương ứng với đơn hàng
             SignedOrder signedOrder = signedOrderDAO.getById(orderId);
-            System.out.println(signedOrder);
-            if (signedOrder == null) return false;
-
+            if (signedOrder == null) return 2;
             String signedOrderData = signedOrder.getSignOrder(); // lấy ra chữ ký
-            System.out.println(signedOrderData);
             int publicKeyId = signedOrder.getPublicKeyId(); // lấy ra id của publickey
-            System.out.println(publicKeyId);
             //lấy ra publickey từ bảng keys
             String publicKey = signedOrderDAO.getPublicKeyById(publicKeyId);
-            if (publicKey == null) return false;
-            System.out.println(publicKey);
+            if (publicKey == null) return 2;
 
             // kiểm tra chữ ký
             DSModel dsModel = new DSModel();
@@ -170,11 +166,11 @@ public class OrderController extends HttpServlet {
             // Cập nhật trạng thái trong bảng sign-order
             int signatureStatus = isValid ? 1 : 0;
             signedOrderDAO.updateSignatureStatus(orderId, signatureStatus);
-            return isValid;
+            return signatureStatus;
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return 2;
         }
     }
 

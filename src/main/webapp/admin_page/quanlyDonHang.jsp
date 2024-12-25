@@ -90,6 +90,10 @@
         #quanlyTable_filter{
             margin-right:-60px;
         }
+        .table-danger {
+            background-color: #f8d7da !important; /* Màu đỏ nhạt */
+            color: #721c24; /* Màu chữ đỏ */
+        }
     </style>
 </head>
 <body>
@@ -129,8 +133,10 @@
         <%
             List<OrderTable> listOrderTables = (List<OrderTable>) request.getAttribute("listOrder");
             for (OrderTable order : listOrderTables) {
+                int signatureStatus = order.getSignatureStatus();
+                String rowClass = (signatureStatus == 0) ? "table-danger" : "";
         %>
-        <tr>
+        <tr class="<%= rowClass %>">
             <td><%= order.getId() %></td>
             <td><%= order.getUsername() %></td>
             <td><%= order.getAddress() %></td>
@@ -150,25 +156,32 @@
                 </button>
                 <!-- Nút trạng thái chữ ký -->
                 <%
-                    int signatureStatus = order.getSignatureStatus();
                     String iconClass = "";
                     String tooltipText = "";
                     String btnClass = "btn-signature-status";
+                    String onclickAction = "";
+                    int orderStatus = order.getOrder_status();
                     switch (signatureStatus) {
                         case 0:
                             iconClass = "fas fa-question-circle text-danger";
                             tooltipText = "Đã bị thay đổi";
+                            if(orderStatus==0) {
+                                onclickAction = "onclick=\"showOrderAlreadyCancelledMessage()\"";
+                            }
+                            else{
+                            onclickAction = "onclick=\"handleCancelOrder(" + order.getId() + ", '" + order.getEmail() + "')\"";}
                             break;
                         case 1:
                             iconClass = "fas fa-check-circle text-success";
-                            tooltipText = "Chưa thay đổi";
+                            tooltipText = "Chưa bị thay đổi";
                             break;
                         default:
                             iconClass = "fas fa-info-circle text-dark";
                             tooltipText = "Không xác định";
+                            break;
                     }
                 %>
-                <button class="<%= btnClass %>" data-toggle="tooltip" title="<%= tooltipText %>">
+                <button class="<%= btnClass %>" data-toggle="tooltip" title="<%= tooltipText %>" <%= onclickAction %>>
                     <i class="<%= iconClass %>"></i>
                 </button>
             </td>
@@ -304,7 +317,8 @@
         </div>
     </div>
 </div>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
         // ===== Khởi tạo DataTable =====
@@ -474,7 +488,52 @@
         });
         //kích hoạt tooltip
         $('[data-toggle="tooltip"]').tooltip();
+
     });
+    function handleCancelOrder(orderId, userEmail) {
+        Swal.fire({
+            title: "Bạn có chắc chắn muốn hủy đơn hàng?",
+            text: "Thao tác này không thể hoàn tác!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: "Hủy",
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Gửi AJAX đến servlet để hủy đơn hàng
+                $.ajax({
+                    type: "POST",
+                    url: "cancelOrder",
+                    data: { orderId: orderId, userEmail: userEmail },
+                    success: function (response) {
+                        if (response === "success") {
+                            Swal.fire("Thành công!", "Đơn hàng đã bị hủy và email đã được gửi.", "success");
+                            setTimeout(() => {
+                                location.reload(); // Reload lại trang
+                            }, 2000);
+                        } else {
+                            Swal.fire("Thất bại!", response, "error");
+                        }
+                    },
+                    error: function () {
+                        Swal.fire("Lỗi!", "Đã xảy ra lỗi khi hủy đơn hàng.", "error");
+                    },
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire("Hủy!", "Đơn hàng không bị hủy.", "info");
+            }
+        });
+    }
+    function showOrderAlreadyCancelledMessage() {
+        Swal.fire({
+            title: "Thông báo",
+            text: "Đơn hàng này đã bị hủy trước đó.",
+            icon: "info",
+            confirmButtonText: "OK",
+        });
+    }
+
 </script>
 </body>
 </html>

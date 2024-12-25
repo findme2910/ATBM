@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderTable extends AbsModel {
     private int id;
+    private String email;
     private String username;
     private int total_price;
     private int shipping_fee;
